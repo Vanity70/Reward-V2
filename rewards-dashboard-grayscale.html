@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Rewards QA Dashboard</title>
+<style>
+:root {
+  --p:    #A5A5A5;
+  --p2:   #8C8C8C;
+  --p3:   #B8B8B8;
+  --p4:   #EEEEEE;
+  --p5:   #F7F7F7;
+  --grey: #A5A5A5;
+  --grey2:#D4D4D4;
+  --grey3:#F0F0F0;
+  --text: #000000;
+  --sub:  #4A4A4A;
+  --white:#FFFFFF;
+  --brd:  #E0E0E0;
+  --row-alt:#F7F7F7;
+  --red:  #D63B3B;
+  --red2: #FDEAEA;
+  --amber:#C47B1A;
+  --amber2:#FEF6E7;
+  --green:#2D8A5A;
+  --green2:#E8F5EE;
+  --blue: #2563EB;
+  --blue2:#EFF6FF;
+  --r:    9px;
+  --sh:   0 2px 16px rgba(165,165,165,.10);
+  --sh2:  0 1px 4px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#FAFAFA;color:var(--text);min-height:100vh}
+
+/* ── HEADER ─────────────────────────────────────────────────────────────── */
+.hdr{
+  background:linear-gradient(135deg,#8C8C8C 0%,#A5A5A5 60%,#B8B8B8 100%);
+  padding:22px 36px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 24px rgba(140,140,140,.28);gap:14px;flex-wrap:wrap;
+}
+.hdr-left h1{color:#fff;font-size:1.22rem;font-weight:700;letter-spacing:.2px}
+.hdr-left p{color:rgba(255,255,255,.68);font-size:.75rem;margin-top:4px}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sync-pill{
+  background:rgba(255,255,255,.14);color:#fff;padding:5px 14px;border-radius:20px;
+  font-size:.71rem;font-weight:600;border:1px solid rgba(255,255,255,.28);
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:#6EE7B7}
+.dot.loading{background:#FCD34D;animation:blink .9s ease-in-out infinite}
+.dot.error{background:#F87171;animation:none}
+.dot.live{background:#6EE7B7;animation:glow 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes glow{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(110,231,183,.5)}60%{opacity:.7;box-shadow:0 0 0 4px rgba(110,231,183,.15)}}
+.refresh-btn{
+  background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.28);
+  padding:5px 14px;border-radius:20px;font-size:.71rem;font-weight:600;cursor:pointer;
+  transition:background .15s;
+}
+.refresh-btn:hover{background:rgba(255,255,255,.3)}
+#last-sync{color:rgba(255,255,255,.55);font-size:.69rem}
+
+/* ── KPI BAR ─────────────────────────────────────────────────────────────── */
+.kpi-bar{display:flex;gap:12px;padding:18px 36px;flex-wrap:wrap}
+.kpi{
+  background:#fff;border-radius:var(--r);padding:14px 20px;flex:1;min-width:115px;
+  box-shadow:var(--sh2);border-left:4px solid var(--p3);display:flex;flex-direction:column;gap:4px;
+}
+.kpi.k-total{border-color:var(--p)}
+.kpi.k-p0{border-color:var(--red)}
+.kpi.k-p1{border-color:var(--amber)}
+.kpi.k-p2{border-color:var(--grey)}
+.kpi.k-func{border-color:#7C7C7C}
+.kpi.k-neg{border-color:#DC2626}
+.kn{font-size:1.9rem;font-weight:800;line-height:1;color:var(--text);transition:all .35s}
+.kl{font-size:.67rem;color:var(--sub);text-transform:uppercase;letter-spacing:.7px;font-weight:600}
+.kpi.k-total .kn{color:var(--text)}
+.kpi.k-p0 .kn{color:var(--red)}
+.kpi.k-p1 .kn{color:var(--amber)}
+.kpi.k-p2 .kn{color:var(--grey)}
+
+/* ── TABS ────────────────────────────────────────────────────────────────── */
+.tab-bar{display:flex;padding:0 36px;gap:2px;flex-wrap:wrap}
+.tab{
+  padding:9px 15px;border-radius:7px 7px 0 0;cursor:pointer;font-size:.78rem;font-weight:600;
+  color:var(--sub);background:#E8E8E8;border:1px solid transparent;border-bottom:none;
+  transition:all .15s;user-select:none;white-space:nowrap;
+}
+.tab:hover{background:#D4D4D4;color:var(--text)}
+.tab.active{background:#fff;color:var(--text);border-color:var(--brd);border-bottom:2px solid #fff;margin-bottom:-1px;z-index:2}
+.tab-badge{
+  display:inline-block;background:rgba(165,165,165,.12);color:var(--text);
+  border-radius:8px;padding:1px 6px;font-size:.63rem;margin-left:4px;font-weight:700;
+}
+.tab.active .tab-badge{background:var(--p4);color:var(--text)}
+
+/* ── CONTENT ─────────────────────────────────────────────────────────────── */
+.content{
+  background:#fff;margin:0 36px 36px;border-radius:0 var(--r) var(--r) var(--r);
+  box-shadow:var(--sh);border:1px solid var(--brd);overflow:hidden;min-height:320px;
+}
+.pane{display:none}.pane.active{display:block}
+
+/* ── LOADING / ERROR ─────────────────────────────────────────────────────── */
+.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:14px;color:var(--sub)}
+.spinner{width:34px;height:34px;border:3px solid var(--p4);border-top-color:var(--p);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-wrap p{font-size:.83rem}
+.err-box{margin:28px;padding:18px 22px;background:var(--red2);border:1px solid #FCA5A5;border-radius:var(--r);border-left:4px solid var(--red)}
+.err-box h3{color:var(--red);font-size:.87rem;margin-bottom:7px}
+.err-box p{font-size:.78rem;color:#7F1D1D;line-height:1.65}
+.err-box code{background:#FEE2E2;padding:2px 5px;border-radius:3px;font-size:.73rem}
+
+/* ── FILTER BAR ──────────────────────────────────────────────────────────── */
+.fb{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  border-bottom:1px solid var(--brd);flex-wrap:wrap;background:#FAFAFA;
+}
+.fb label{font-size:.71rem;font-weight:600;color:var(--sub)}
+.fb select,.fb input{
+  padding:5px 10px;border:1px solid var(--brd);border-radius:6px;font-size:.74rem;
+  background:#fff;color:var(--text);outline:none;transition:border .15s;
+}
+.fb select:focus,.fb input:focus{border-color:var(--p)}
+.fb input{min-width:190px}
+.fc{margin-left:auto;font-size:.71rem;color:var(--sub);font-style:italic}
+
+/* ── TABLE ───────────────────────────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+thead tr{background:var(--p)}
+thead th{
+  color:#fff;font-weight:700;padding:10px 12px;text-align:left;
+  white-space:nowrap;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;
+}
+tbody td{padding:9px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;line-height:1.5}
+tbody tr:hover{background:#F0F0F0 !important}
+.sec-row td{
+  background:linear-gradient(90deg,var(--p2),var(--p3)) !important;
+  color:#fff;font-weight:700;font-size:.74rem;padding:7px 12px;letter-spacing:.4px;
+}
+.tc-id{font-family:'Courier New',monospace;font-weight:700;color:var(--text);font-size:.74rem;white-space:nowrap}
+
+/* ── PRIORITY BADGES ─────────────────────────────────────────────────────── */
+.pri{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.65rem;font-weight:700;white-space:nowrap}
+.p0{background:var(--red2);color:var(--red);border:1px solid #FCA5A5}
+.p1{background:var(--amber2);color:var(--amber);border:1px solid #FCD34D}
+.p2{background:var(--grey3);color:#555;border:1px solid var(--grey2)}
+.p3{background:var(--green2);color:var(--green);border:1px solid #86EFAC}
+
+/* ── TEST TYPE BADGES ────────────────────────────────────────────────────── */
+.tt{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.63rem;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.tt-func{background:#F0F0F0;color:#333;border-color:#D4D4D4}
+.tt-neg{background:var(--red2);color:#991B1B;border-color:#FCA5A5}
+.tt-ux{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
+.tt-data{background:#EFF6FF;color:var(--blue);border-color:#BFDBFE}
+.tt-bnd{background:var(--green2);color:#166534;border-color:#86EFAC}
+.tt-edge{background:#F5F5F5;color:#555;border-color:#D4D4D4}
+
+/* ── STEPS & NOTES ───────────────────────────────────────────────────────── */
+.steps{white-space:pre-line;font-size:.72rem;color:#4B4B4B;line-height:1.55}
+.exp{font-size:.72rem;color:#1E4D35;line-height:1.5}
+.notes{font-size:.69rem;color:var(--sub);font-style:italic}
+
+/* ── SUMMARY ─────────────────────────────────────────────────────────────── */
+.sw{padding:26px}
+.sw-hdr{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sw-hdr h2{font-size:.97rem;font-weight:700;color:var(--text)}
+.sw-hdr span{font-size:.73rem;color:var(--sub)}
+.sum-t{width:100%;border-collapse:collapse;font-size:.8rem}
+.sum-t thead tr{background:var(--p)}
+.sum-t thead th{color:#fff;padding:10px 14px;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+.sum-t tbody tr:nth-child(odd){background:#fff}
+.sum-t tbody tr:nth-child(even){background:var(--row-alt)}
+.sum-t tbody tr:hover{background:var(--p5)}
+.sum-t td{padding:11px 14px;border-bottom:1px solid var(--brd)}
+.sum-t .tr-total td{background:var(--p);color:#fff;font-weight:700}
+.legend{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+.legend-item{display:flex;align-items:center;gap:7px;background:var(--grey3);padding:8px 14px;border-radius:6px;font-size:.75rem}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.pb{display:flex;align-items:center;gap:8px}
+.pbr{height:8px;border-radius:4px;background:var(--p4);flex:1;overflow:hidden;min-width:80px}
+.pbf{height:100%;border-radius:4px;transition:width .6s ease}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media(max-width:860px){
+  .hdr,.kpi-bar,.tab-bar{padding-left:14px;padding-right:14px}
+  .content{margin:0 0 24px}
+  .sw{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>Rewards System Revamp — QA Test Dashboard</h1>
+    <p>Live sync from Google Sheets &nbsp;·&nbsp; Auto-refreshes every 60 seconds</p>
+  </div>
+  <div class="hdr-right">
+    <span id="last-sync"></span>
+    <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+    <div class="sync-pill">
+      <div class="dot loading" id="sync-dot"></div>
+      <span id="sync-lbl">Loading…</span>
+    </div>
+  </div>
+</div>
+
+<!-- KPI BAR -->
+<div class="kpi-bar">
+  <div class="kpi k-total"><div class="kn" id="k-total">—</div><div class="kl">Total Test Cases</div></div>
+  <div class="kpi k-p0">  <div class="kn" id="k-p0">—</div>  <div class="kl">🔴 P0 Critical</div></div>
+  <div class="kpi k-p1">  <div class="kn" id="k-p1">—</div>  <div class="kl">🟡 P1 High</div></div>
+  <div class="kpi k-p2">  <div class="kn" id="k-p2">—</div>  <div class="kl">⚪ P2 Medium</div></div>
+  <div class="kpi k-func"><div class="kn" id="k-func">—</div> <div class="kl">Functional TCs</div></div>
+  <div class="kpi k-neg"> <div class="kn" id="k-neg">—</div>  <div class="kl">Negative TCs</div></div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <div class="tab active" onclick="showTab(this,'summary')">📊 Summary</div>
+  <div class="tab" onclick="showTab(this,'earn')">💳 Earning Logic <span class="tab-badge" id="tb-earn">—</span></div>
+  <div class="tab" onclick="showTab(this,'ref')">↩ Refunds <span class="tab-badge" id="tb-ref">—</span></div>
+  <div class="tab" onclick="showTab(this,'dis')">⚖️ Disputes <span class="tab-badge" id="tb-dis">—</span></div>
+  <div class="tab" onclick="showTab(this,'wal')">👛 Wallet States <span class="tab-badge" id="tb-wal">—</span></div>
+  <div class="tab" onclick="showTab(this,'pro')">🎁 Promo Rewards <span class="tab-badge" id="tb-pro">—</span></div>
+  <div class="tab" onclick="showTab(this,'rfw')">🤝 Referrals <span class="tab-badge" id="tb-rfw">—</span></div>
+  <div class="tab" onclick="showTab(this,'led')">📒 Ledger & Audit <span class="tab-badge" id="tb-led">—</span></div>
+  <div class="tab" onclick="showTab(this,'neg')">🚫 Negative Cases <span class="tab-badge" id="tb-neg">—</span></div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- SUMMARY -->
+  <div class="pane active" id="pane-summary">
+    <div class="sw">
+      <div class="sw-hdr">
+        <h2>Coverage by Module</h2>
+        <span id="sum-ts">Fetching live data…</span>
+      </div>
+      <div id="sum-area">
+        <div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets…</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EARNING LOGIC -->
+  <div class="pane" id="pane-earn">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-earn-p" onchange="applyFilter('earn')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-earn-t" onchange="applyFilter('earn')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="negative">Negative</option></select>
+      <input id="f-earn-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('earn')"/>
+      <span class="fc" id="earn-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-earn"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- REFUNDS -->
+  <div class="pane" id="pane-ref">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-ref-p" onchange="applyFilter('ref')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-ref-t" onchange="applyFilter('ref')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="negative">Negative</option></select>
+      <input id="f-ref-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('ref')"/>
+      <span class="fc" id="ref-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-ref"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- DISPUTES -->
+  <div class="pane" id="pane-dis">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-dis-p" onchange="applyFilter('dis')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-dis-t" onchange="applyFilter('dis')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="negative">Negative</option></select>
+      <input id="f-dis-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('dis')"/>
+      <span class="fc" id="dis-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-dis"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- WALLET STATES -->
+  <div class="pane" id="pane-wal">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-wal-p" onchange="applyFilter('wal')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-wal-t" onchange="applyFilter('wal')"><option value="">All</option><option value="functional">Functional</option><option value="ux/ui">UX/UI</option><option value="negative">Negative</option></select>
+      <input id="f-wal-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('wal')"/>
+      <span class="fc" id="wal-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-wal"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- PROMO REWARDS -->
+  <div class="pane" id="pane-pro">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-pro-p" onchange="applyFilter('pro')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-pro-t" onchange="applyFilter('pro')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="ux/ui">UX/UI</option></select>
+      <input id="f-pro-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('pro')"/>
+      <span class="fc" id="pro-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-pro"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- REFERRALS -->
+  <div class="pane" id="pane-rfw">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-rfw-p" onchange="applyFilter('rfw')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-rfw-t" onchange="applyFilter('rfw')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="negative">Negative</option><option value="edge case">Edge Case</option></select>
+      <input id="f-rfw-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('rfw')"/>
+      <span class="fc" id="rfw-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-rfw"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- LEDGER & AUDIT -->
+  <div class="pane" id="pane-led">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-led-p" onchange="applyFilter('led')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-led-t" onchange="applyFilter('led')"><option value="">All</option><option value="data integrity">Data Integrity</option><option value="ux/ui">UX/UI</option><option value="functional">Functional</option></select>
+      <input id="f-led-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('led')"/>
+      <span class="fc" id="led-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-led"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+  <!-- NEGATIVE CASES -->
+  <div class="pane" id="pane-neg">
+    <div class="fb">
+      <label>Priority:</label>
+      <select id="f-neg-p" onchange="applyFilter('neg')"><option value="">All</option><option value="p0">P0 Critical</option><option value="p1">P1 High</option><option value="p2">P2 Medium</option></select>
+      <label>Type:</label>
+      <select id="f-neg-t" onchange="applyFilter('neg')"><option value="">All</option><option value="negative">Negative</option><option value="ux/ui">UX/UI</option></select>
+      <input id="f-neg-q" type="text" placeholder="Search scenarios…" oninput="applyFilter('neg')"/>
+      <span class="fc" id="neg-c"></span>
+    </div>
+    <div class="tbl-wrap" id="wrap-neg"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────
+const SHEET_ID = '18wlkVf4aIjK-_Px_Avs-0a6j7bq3KPIK0SQcXmwEBRA';
+const BASE     = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
+
+const TABS = [
+  { key:'earn', sheet:'Earning Logic'    },
+  { key:'ref',  sheet:'Refunds & Returns'},
+  { key:'dis',  sheet:'Dispute Handling' },
+  { key:'wal',  sheet:'Wallet States'    },
+  { key:'pro',  sheet:'Promo Rewards'    },
+  { key:'rfw',  sheet:'Referral Rewards' },
+  { key:'led',  sheet:'Ledger & Audit'   },
+  { key:'neg',  sheet:'Negative Cases'   },
+  { key:'sum',  sheet:'Summary'          },
+];
+
+// ── CSV PARSER ────────────────────────────────────────────────────────────
+function parseCSV(txt) {
+  const rows = []; let i = 0, n = txt.length;
+  while (i < n) {
+    const row = [];
+    while (i < n && txt[i] !== '\n') {
+      if (txt[i] === '"') {
+        let cell = ''; i++;
+        while (i < n) {
+          if (txt[i] === '"' && txt[i+1] === '"') { cell += '"'; i += 2; }
+          else if (txt[i] === '"') { i++; break; }
+          else cell += txt[i++];
+        }
+        row.push(cell.trim());
+      } else {
+        let cell = '';
+        while (i < n && txt[i] !== ',' && txt[i] !== '\n') cell += txt[i++];
+        row.push(cell.trim());
+      }
+      if (i < n && txt[i] === ',') i++;
+    }
+    if (i < n) i++;
+    if (row.some(c => c !== '')) rows.push(row);
+  }
+  return rows;
+}
+
+async function fetchSheet(name) {
+  const res = await fetch(BASE + encodeURIComponent(name));
+  if (!res.ok) throw new Error(`HTTP ${res.status} — ${name}`);
+  return parseCSV(await res.text());
+}
+
+// ── PRIORITY BADGE ────────────────────────────────────────────────────────
+// Priority col value e.g. "P0 - Critical"
+function priBadge(p) {
+  const s = (p||'').trim();
+  if (s.startsWith('P0')) return `<span class="pri p0">P0 Critical</span>`;
+  if (s.startsWith('P1')) return `<span class="pri p1">P1 High</span>`;
+  if (s.startsWith('P2')) return `<span class="pri p2">P2 Medium</span>`;
+  if (s.startsWith('P3')) return `<span class="pri p3">P3 Low</span>`;
+  return `<span class="pri p2">${s}</span>`;
+}
+
+// Priority → data-p value for filtering
+function priKey(p) {
+  const s = (p||'').trim();
+  if (s.startsWith('P0')) return 'p0';
+  if (s.startsWith('P1')) return 'p1';
+  if (s.startsWith('P2')) return 'p2';
+  return 'p3';
+}
+
+// ── TEST TYPE BADGE ───────────────────────────────────────────────────────
+function ttBadge(t) {
+  const s = (t||'').trim().toLowerCase();
+  if (s === 'functional')    return `<span class="tt tt-func">Functional</span>`;
+  if (s === 'negative')      return `<span class="tt tt-neg">Negative</span>`;
+  if (s.includes('ux'))      return `<span class="tt tt-ux">UX/UI</span>`;
+  if (s.includes('data'))    return `<span class="tt tt-data">Data Integrity</span>`;
+  if (s === 'boundary')      return `<span class="tt tt-bnd">Boundary</span>`;
+  if (s.includes('edge'))    return `<span class="tt tt-edge">Edge Case</span>`;
+  return `<span class="tt tt-func">${t}</span>`;
+}
+
+// ── BUILD TC TABLE ────────────────────────────────────────────────────────
+// Columns: TC ID[0] | Module[1] | Test Scenario[2] | Preconditions[3] |
+//          Test Steps[4] | Expected Result[5] | Priority[6] | Test Type[7] | Notes[8]
+function buildTable(rows, key) {
+  const data = rows.slice(2); // skip title + header
+  let html = `<table>
+    <thead><tr>
+      <th>TC ID</th>
+      <th style="min-width:130px">Module</th>
+      <th style="min-width:220px">Test Scenario</th>
+      <th style="min-width:180px">Preconditions</th>
+      <th style="min-width:210px">Test Steps</th>
+      <th style="min-width:210px">Expected Result</th>
+      <th>Priority</th>
+      <th>Type</th>
+      <th style="min-width:180px">Notes / Traceability</th>
+    </tr></thead><tbody id="body-${key}">`;
+
+  let count = 0;
+  data.forEach(r => {
+    const id = (r[0]||'').trim();
+    // Section header rows — no TC ID prefix
+    if (!id.match(/^[A-Z]{2,6}-[0-9R]/)) {
+      if (id) html += `<tr class="sec-row"><td colspan="9">${id}</td></tr>`;
+      return;
+    }
+    count++;
+    const module = r[1]||'';
+    const scene  = r[2]||'';
+    const pre    = r[3]||'';
+    const steps  = (r[4]||'').replace(/\\n/g,'\n');
+    const exp    = r[5]||'';
+    const pri    = r[6]||'';
+    const ttype  = r[7]||'';
+    const notes  = r[8]||'';
+
+    const rowBg = count % 2 === 0 ? 'var(--row-alt)' : '';
+    html += `<tr style="background:${rowBg}"
+      data-p="${priKey(pri)}"
+      data-t="${ttype.toLowerCase().trim()}"
+      data-q="${(scene+' '+module+' '+notes).toLowerCase()}">
+      <td class="tc-id">${id}</td>
+      <td style="font-size:.72rem;color:var(--sub);font-weight:600">${module}</td>
+      <td style="font-weight:500">${scene}</td>
+      <td style="font-size:.72rem;color:#4B4B60">${pre}</td>
+      <td class="steps">${steps}</td>
+      <td class="exp">${exp}</td>
+      <td>${priBadge(pri)}</td>
+      <td>${ttBadge(ttype)}</td>
+      <td class="notes">${notes}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+  return { html, count };
+}
+
+// ── FILTER ────────────────────────────────────────────────────────────────
+function applyFilter(key) {
+  const g = id => { const el=document.getElementById(id); return el ? el.value.toLowerCase().trim() : ''; };
+  const priF  = g(`f-${key}-p`);
+  const typeF = g(`f-${key}-t`);
+  const textF = g(`f-${key}-q`);
+
+  const tbody = document.getElementById(`body-${key}`);
+  if (!tbody) return;
+
+  const rows = tbody.querySelectorAll('tr');
+  let shown = 0, total = 0;
+  rows.forEach(r => {
+    if (r.classList.contains('sec-row')) { r.style.display = ''; return; }
+    total++;
+    let vis = true;
+    if (priF  && r.dataset.p !== priF)              vis = false;
+    if (typeF && !r.dataset.t.includes(typeF))      vis = false;
+    if (textF && !r.dataset.q.includes(textF))      vis = false;
+    r.style.display = vis ? '' : 'none';
+    if (vis) shown++;
+  });
+
+  // Re-stripe visible rows
+  let idx = 0;
+  rows.forEach(r => {
+    if (r.classList.contains('sec-row') || r.style.display === 'none') return;
+    r.style.background = idx % 2 === 0 ? '' : 'var(--row-alt)';
+    idx++;
+  });
+
+  const el = document.getElementById(`${key}-c`);
+  if (el) el.textContent = shown === total
+    ? `${total} test cases`
+    : `Showing ${shown} of ${total}`;
+}
+
+function reapplyAll() {
+  TABS.filter(t => t.key !== 'sum').forEach(t => applyFilter(t.key));
+}
+
+// ── BUILD SUMMARY ─────────────────────────────────────────────────────────
+function buildSummary(sumRows, allData) {
+  // Compute real counts from TC data
+  const counts = {};
+  let totTotal=0, totP0=0, totP1=0, totP2=0, totFunc=0, totNeg=0;
+
+  TABS.filter(t => t.key !== 'sum').forEach(({ key, sheet }) => {
+    const rows = allData[key] || [];
+    let n=0, p0=0, p1=0, p2=0;
+    rows.slice(2).forEach(r => {
+      const id = (r[0]||'').trim();
+      if (!id.match(/^[A-Z]{2,6}-[0-9R]/)) return;
+      n++;
+      const pri = (r[6]||'').trim();
+      if (pri.startsWith('P0')) p0++;
+      else if (pri.startsWith('P1')) p1++;
+      else if (pri.startsWith('P2')) p2++;
+      const tt = (r[7]||'').toLowerCase();
+      if (tt === 'functional') totFunc++;
+      if (tt === 'negative') totNeg++;
+    });
+    counts[sheet] = { n, p0, p1, p2 };
+    totTotal+=n; totP0+=p0; totP1+=p1; totP2+=p2;
+  });
+
+  // Update KPIs
+  document.getElementById('k-total').textContent = totTotal;
+  document.getElementById('k-p0').textContent    = totP0;
+  document.getElementById('k-p1').textContent    = totP1;
+  document.getElementById('k-p2').textContent    = totP2;
+  document.getElementById('k-func').textContent  = totFunc;
+  document.getElementById('k-neg').textContent   = totNeg;
+
+  // Build table using Summary sheet for descriptions/notes, counts from real data
+  const dataRows = sumRows.slice(2).filter(r => r[0] && r[0] !== 'TOTAL' && !r[0].includes('LEGEND') && !r[0].includes('P0') && !r[0].includes('P1') && !r[0].includes('P2') && !r[0].includes('P3'));
+
+  let html = `<table class="sum-t">
+    <thead><tr>
+      <th>Module</th>
+      <th>Area Covered</th>
+      <th style="text-align:center"># TCs</th>
+      <th style="text-align:center">P0</th>
+      <th style="text-align:center">P1</th>
+      <th style="text-align:center">P2</th>
+      <th style="min-width:160px">P0 Coverage</th>
+      <th>Notes</th>
+    </tr></thead><tbody>`;
+
+  dataRows.forEach(r => {
+    const sheet = r[0]||'';
+    const area  = r[1]||'';
+    const note  = r[5]||'';
+    const c = counts[sheet] || { n:0, p0:0, p1:0, p2:0 };
+    const pct = c.n ? Math.round(c.p0/c.n*100) : 0;
+    const barCol = pct > 60 ? 'var(--red)' : pct > 30 ? 'var(--amber)' : 'var(--green)';
+    html += `<tr>
+      <td><strong>${sheet}</strong></td>
+      <td style="font-size:.76rem;color:var(--sub)">${area}</td>
+      <td style="text-align:center;font-weight:700;color:var(--text)">${c.n}</td>
+      <td style="text-align:center"><span class="pri p0">${c.p0}</span></td>
+      <td style="text-align:center"><span class="pri p1">${c.p1}</span></td>
+      <td style="text-align:center"><span class="pri p2">${c.p2}</span></td>
+      <td>
+        <div class="pb">
+          <div class="pbr"><div class="pbf" style="width:${pct}%;background:${barCol}"></div></div>
+          <span style="font-size:.69rem;color:var(--sub);min-width:30px">${pct}%</span>
+        </div>
+      </td>
+      <td style="font-size:.72rem;color:var(--sub);font-style:italic">${note}</td>
+    </tr>`;
+  });
+
+  html += `<tr class="tr-total">
+    <td><strong>TOTAL</strong></td>
+    <td>All areas</td>
+    <td style="text-align:center"><strong>${totTotal}</strong></td>
+    <td style="text-align:center"><strong>${totP0}</strong></td>
+    <td style="text-align:center"><strong>${totP1}</strong></td>
+    <td style="text-align:center"><strong>${totP2}</strong></td>
+    <td></td><td></td>
+  </tr></tbody></table>`;
+
+  // Priority legend
+  html += `<div class="legend">
+    <div style="font-size:.75rem;font-weight:700;color:var(--sub);align-self:center;margin-right:4px">Priority Legend:</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><strong>P0 Critical</strong> — System cannot ship without these passing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><strong>P1 High</strong> — Must pass before production release</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--grey)"></div><strong>P2 Medium</strong> — Should pass; deferrable with sign-off</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><strong>P3 Low</strong> — Nice to have; low-risk cosmetic</div>
+  </div>`;
+
+  return html;
+}
+
+// ── MAIN LOAD ─────────────────────────────────────────────────────────────
+async function loadAll() {
+  setSyncState('loading','Loading…');
+  try {
+    const results = await Promise.all(TABS.map(t => fetchSheet(t.sheet)));
+    const allData = {};
+    TABS.forEach((t,i) => allData[t.key] = results[i]);
+
+    // Summary
+    document.getElementById('sum-area').innerHTML = buildSummary(allData.sum, allData);
+    const now = new Date();
+    document.getElementById('sum-ts').textContent = `Last updated ${now.toLocaleTimeString()}`;
+
+    // TC tables
+    TABS.filter(t => t.key !== 'sum').forEach(({ key }) => {
+      const { html, count } = buildTable(allData[key], key);
+      document.getElementById(`wrap-${key}`).innerHTML = html;
+      document.getElementById(`${key}-c`).textContent  = `${count} test cases`;
+      document.getElementById(`tb-${key}`).textContent = count;
+    });
+
+    document.getElementById('last-sync').textContent = `Synced ${now.toLocaleTimeString()}`;
+    setSyncState('live','Live');
+    reapplyAll();
+
+  } catch(err) {
+    console.error(err);
+    setSyncState('error','Error');
+    const errHTML = `<div class="err-box">
+      <h3>⚠️ Could not load data from Google Sheets</h3>
+      <p>Ensure the sheet is published to web:<br/>
+      <strong>File → Share → Publish to web → each tab as CSV</strong></p>
+      <p style="margin-top:8px">Also ensure this file is opened via a web server — browsers block Google Sheets requests from local <code>file://</code> paths.</p>
+      <p style="margin-top:8px;color:#9CA3AF;font-size:.72rem">Error: ${err.message}</p>
+    </div>`;
+    document.getElementById('sum-area').innerHTML = errHTML;
+    TABS.filter(t=>t.key!=='sum').forEach(({key})=>{
+      const w = document.getElementById(`wrap-${key}`);
+      if(w) w.innerHTML = errHTML;
+    });
+  }
+}
+
+function setSyncState(state, label) {
+  document.getElementById('sync-dot').className = `dot ${state}`;
+  document.getElementById('sync-lbl').textContent = label;
+}
+
+function showTab(el, id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('pane-'+id).classList.add('active');
+}
+
+// Init
+loadAll();
+setInterval(loadAll, 60000);
+</script>
+</body>
+</html>
