@@ -6,19 +6,19 @@
 <title>Rewards QA Dashboard</title>
 <style>
 :root {
-  --p:    #A5A5A5;
-  --p2:   #8C8C8C;
-  --p3:   #B8B8B8;
-  --p4:   #EEEEEE;
-  --p5:   #F7F7F7;
+  --p:    #6552D0;
+  --p2:   #8370DC;
+  --p3:   #A99FE8;
+  --p4:   #EBE8FA;
+  --p5:   #F5F3FD;
   --grey: #A5A5A5;
   --grey2:#D4D4D4;
   --grey3:#F0F0F0;
-  --text: #000000;
-  --sub:  #4A4A4A;
+  --text: #1A1A2E;
+  --sub:  #6B6B80;
   --white:#FFFFFF;
-  --brd:  #E0E0E0;
-  --row-alt:#F7F7F7;
+  --brd:  #E0DDF5;
+  --row-alt:#F7F6FD;
   --red:  #D63B3B;
   --red2: #FDEAEA;
   --amber:#C47B1A;
@@ -28,17 +28,17 @@
   --blue: #2563EB;
   --blue2:#EFF6FF;
   --r:    9px;
-  --sh:   0 2px 16px rgba(165,165,165,.10);
+  --sh:   0 2px 16px rgba(101,82,208,.10);
   --sh2:  0 1px 4px rgba(0,0,0,.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#FAFAFA;color:var(--text);min-height:100vh}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#F2F0FB;color:var(--text);min-height:100vh}
 
 /* ── HEADER ─────────────────────────────────────────────────────────────── */
 .hdr{
-  background:linear-gradient(135deg,#8C8C8C 0%,#A5A5A5 60%,#B8B8B8 100%);
+  background:linear-gradient(135deg,var(--p) 0%,var(--p2) 60%,#9B6FE8 100%);
   padding:22px 36px;display:flex;align-items:center;justify-content:space-between;
-  box-shadow:0 4px 24px rgba(140,140,140,.28);gap:14px;flex-wrap:wrap;
+  box-shadow:0 4px 24px rgba(101,82,208,.28);gap:14px;flex-wrap:wrap;
 }
 .hdr-left h1{color:#fff;font-size:1.22rem;font-weight:700;letter-spacing:.2px}
 .hdr-left p{color:rgba(255,255,255,.68);font-size:.75rem;margin-top:4px}
@@ -72,11 +72,11 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#FAFAFA;color:
 .kpi.k-p0{border-color:var(--red)}
 .kpi.k-p1{border-color:var(--amber)}
 .kpi.k-p2{border-color:var(--grey)}
-.kpi.k-func{border-color:#7C7C7C}
+.kpi.k-func{border-color:#7C3AED}
 .kpi.k-neg{border-color:#DC2626}
-.kn{font-size:1.9rem;font-weight:800;line-height:1;color:var(--text);transition:all .35s}
+.kn{font-size:1.9rem;font-weight:800;line-height:1;color:var(--p);transition:all .35s}
 .kl{font-size:.67rem;color:var(--sub);text-transform:uppercase;letter-spacing:.7px;font-weight:600}
-.kpi.k-total .kn{color:var(--text)}
+.kpi.k-total .kn{color:var(--p)}
 .kpi.k-p0 .kn{color:var(--red)}
 .kpi.k-p1 .kn{color:var(--amber)}
 .kpi.k-p2 .kn{color:var(--grey)}
@@ -85,16 +85,16 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#FAFAFA;color:
 .tab-bar{display:flex;padding:0 36px;gap:2px;flex-wrap:wrap}
 .tab{
   padding:9px 15px;border-radius:7px 7px 0 0;cursor:pointer;font-size:.78rem;font-weight:600;
-  color:var(--sub);background:#E8E8E8;border:1px solid transparent;border-bottom:none;
+  color:var(--sub);background:#E4E1F5;border:1px solid transparent;border-bottom:none;
   transition:all .15s;user-select:none;white-space:nowrap;
 }
-.tab:hover{background:#D4D4D4;color:var(--text)}
-.tab.active{background:#fff;color:var(--text);border-color:var(--brd);border-bottom:2px solid #fff;margin-bottom:-1px;z-index:2}
+.tab:hover{background:#D5D0F0;color:var(--p)}
+.tab.active{background:#fff;color:var(--p);border-color:var(--brd);border-bottom:2px solid #fff;margin-bottom:-1px;z-index:2}
 .tab-badge{
-  display:inline-block;background:rgba(165,165,165,.12);color:var(--text);
+  display:inline-block;background:rgba(101,82,208,.12);color:var(--p);
   border-radius:8px;padding:1px 6px;font-size:.63rem;margin-left:4px;font-weight:700;
 }
-.tab.active .tab-badge{background:var(--p4);color:var(--text)}
+.tab.active .tab-badge{background:var(--p4);color:var(--p)}
 
 /* ── CONTENT ─────────────────────────────────────────────────────────────── */
 .content{
@@ -135,13 +135,13 @@ thead th{
   color:#fff;font-weight:700;padding:10px 12px;text-align:left;
   white-space:nowrap;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;
 }
-tbody td{padding:9px 12px;border-bottom:1px solid #F0F0F0;vertical-align:top;line-height:1.5}
-tbody tr:hover{background:#F0F0F0 !important}
+tbody td{padding:9px 12px;border-bottom:1px solid #EEEAF8;vertical-align:top;line-height:1.5}
+tbody tr:hover{background:#F0EDFC !important}
 .sec-row td{
   background:linear-gradient(90deg,var(--p2),var(--p3)) !important;
   color:#fff;font-weight:700;font-size:.74rem;padding:7px 12px;letter-spacing:.4px;
 }
-.tc-id{font-family:'Courier New',monospace;font-weight:700;color:var(--text);font-size:.74rem;white-space:nowrap}
+.tc-id{font-family:'Courier New',monospace;font-weight:700;color:var(--p);font-size:.74rem;white-space:nowrap}
 
 /* ── PRIORITY BADGES ─────────────────────────────────────────────────────── */
 .pri{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.65rem;font-weight:700;white-space:nowrap}
@@ -152,22 +152,22 @@ tbody tr:hover{background:#F0F0F0 !important}
 
 /* ── TEST TYPE BADGES ────────────────────────────────────────────────────── */
 .tt{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.63rem;font-weight:600;white-space:nowrap;border:1px solid transparent}
-.tt-func{background:#F0F0F0;color:#333;border-color:#D4D4D4}
+.tt-func{background:#EDE9FE;color:#5B21B6;border-color:#DDD6FE}
 .tt-neg{background:var(--red2);color:#991B1B;border-color:#FCA5A5}
 .tt-ux{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
 .tt-data{background:#EFF6FF;color:var(--blue);border-color:#BFDBFE}
 .tt-bnd{background:var(--green2);color:#166534;border-color:#86EFAC}
-.tt-edge{background:#F5F5F5;color:#555;border-color:#D4D4D4}
+.tt-edge{background:#FDF4FF;color:#7E22CE;border-color:#E9D5FF}
 
 /* ── STEPS & NOTES ───────────────────────────────────────────────────────── */
-.steps{white-space:pre-line;font-size:.72rem;color:#4B4B4B;line-height:1.55}
+.steps{white-space:pre-line;font-size:.72rem;color:#4B4B60;line-height:1.55}
 .exp{font-size:.72rem;color:#1E4D35;line-height:1.5}
 .notes{font-size:.69rem;color:var(--sub);font-style:italic}
 
 /* ── SUMMARY ─────────────────────────────────────────────────────────────── */
 .sw{padding:26px}
 .sw-hdr{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
-.sw-hdr h2{font-size:.97rem;font-weight:700;color:var(--text)}
+.sw-hdr h2{font-size:.97rem;font-weight:700;color:var(--p)}
 .sw-hdr span{font-size:.73rem;color:var(--sub)}
 .sum-t{width:100%;border-collapse:collapse;font-size:.8rem}
 .sum-t thead tr{background:var(--p)}
@@ -358,7 +358,26 @@ tbody tr:hover{background:#F0F0F0 !important}
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────
 const SHEET_ID = '18wlkVf4aIjK-_Px_Avs-0a6j7bq3KPIK0SQcXmwEBRA';
-const BASE     = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
+
+// Build the Google Sheets CSV export URL.
+// KEY FIX: gviz/tq breaks when '&' in sheet names is encoded as '%26'.
+// We must preserve '&' raw in the sheet= query param while still
+// encoding spaces and other special characters.
+function buildURL(sheetName) {
+  const safe = sheetName
+    .replace(/%/g,  '%25') // must be first
+    .replace(/ /g,  '%20')
+    .replace(/\+/g, '%2B')
+    .replace(/\//g, '%2F')
+    .replace(/\?/g, '%3F')
+    .replace(/#/g,  '%23')
+    // '&' is intentionally left raw — gviz/tq needs it unencoded in sheet= param
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${safe}`;
+}
+
+// CORS proxy — used automatically if direct fetch is blocked
+// (happens when file opened as file:// or sheet not yet published)
+const PROXY = 'https://corsproxy.io/?';
 
 const TABS = [
   { key:'earn', sheet:'Earning Logic'    },
@@ -399,10 +418,49 @@ function parseCSV(txt) {
   return rows;
 }
 
+// ── FETCH WITH FALLBACK ───────────────────────────────────────────────────
+// Strategy 1: Direct gviz/tq URL (works when sheet is published + served from domain)
+// Strategy 2: Via corsproxy.io (works when file:// or CORS blocked)
+// Strategy 3: Alternative export URL format
 async function fetchSheet(name) {
-  const res = await fetch(BASE + encodeURIComponent(name));
-  if (!res.ok) throw new Error(`HTTP ${res.status} — ${name}`);
-  return parseCSV(await res.text());
+  const directURL = buildURL(name);
+
+  // Try direct first
+  try {
+    const res = await fetch(directURL);
+    if (res.ok) {
+      const txt = await res.text();
+      // gviz returns an HTML error page (not HTTP error) when sheet isn't found
+      if (!txt.includes('<!DOCTYPE') && !txt.includes('<html')) {
+        return parseCSV(txt);
+      }
+    }
+  } catch (_) { /* fall through to proxy */ }
+
+  // Fallback: CORS proxy
+  try {
+    const res = await fetch(PROXY + encodeURIComponent(directURL));
+    if (res.ok) {
+      const txt = await res.text();
+      if (!txt.includes('<!DOCTYPE') && !txt.includes('<html')) {
+        return parseCSV(txt);
+      }
+    }
+  } catch (_) { /* fall through to alt format */ }
+
+  // Last resort: export format (works for public sheets)
+  const exportURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${buildURL(name).split('sheet=')[1]}`;
+  try {
+    const res = await fetch(PROXY + encodeURIComponent(exportURL));
+    if (res.ok) {
+      const txt = await res.text();
+      if (!txt.includes('<!DOCTYPE') && !txt.includes('<html')) {
+        return parseCSV(txt);
+      }
+    }
+  } catch (_) {}
+
+  throw new Error(`Could not load sheet "${name}". Check it is published: File → Share → Publish to web → "${name}" as CSV.`);
 }
 
 // ── PRIORITY BADGE ────────────────────────────────────────────────────────
@@ -592,7 +650,7 @@ function buildSummary(sumRows, allData) {
     html += `<tr>
       <td><strong>${sheet}</strong></td>
       <td style="font-size:.76rem;color:var(--sub)">${area}</td>
-      <td style="text-align:center;font-weight:700;color:var(--text)">${c.n}</td>
+      <td style="text-align:center;font-weight:700;color:var(--p)">${c.n}</td>
       <td style="text-align:center"><span class="pri p0">${c.p0}</span></td>
       <td style="text-align:center"><span class="pri p1">${c.p1}</span></td>
       <td style="text-align:center"><span class="pri p2">${c.p2}</span></td>
@@ -658,10 +716,20 @@ async function loadAll() {
     setSyncState('error','Error');
     const errHTML = `<div class="err-box">
       <h3>⚠️ Could not load data from Google Sheets</h3>
-      <p>Ensure the sheet is published to web:<br/>
-      <strong>File → Share → Publish to web → each tab as CSV</strong></p>
-      <p style="margin-top:8px">Also ensure this file is opened via a web server — browsers block Google Sheets requests from local <code>file://</code> paths.</p>
-      <p style="margin-top:8px;color:#9CA3AF;font-size:.72rem">Error: ${err.message}</p>
+      <p><strong>Most likely fix — publish each tab to the web:</strong></p>
+      <p style="margin-top:8px">
+        1. Open your Google Sheet<br/>
+        2. <strong>File → Share → Publish to web</strong><br/>
+        3. In the first dropdown choose a <em>specific sheet tab</em> (e.g. "Earning Logic")<br/>
+        4. In the second dropdown choose <strong>Comma-separated values (.csv)</strong><br/>
+        5. Click <strong>Publish</strong> — then repeat for <em>every tab</em><br/>
+        6. Make sure the sheet is also set to "Anyone with the link can view"
+      </p>
+      <p style="margin-top:8px;color:#7F1D1D">
+        ⚠️ <strong>Sharing ≠ Publishing.</strong> The sheet must be explicitly <em>published</em>
+        to allow browser fetch requests — sharing alone is not enough.
+      </p>
+      <p style="margin-top:8px;font-size:.74rem;color:#9CA3AF">Technical error: ${err.message}</p>
     </div>`;
     document.getElementById('sum-area').innerHTML = errHTML;
     TABS.filter(t=>t.key!=='sum').forEach(({key})=>{
