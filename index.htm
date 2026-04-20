@@ -11,6 +11,7 @@
   --paper:#F8F6F2;--white:#FFFFFF;
   --red:#B03A2E;--red2:#F9EDEC;--amber:#8A5A00;--amber2:#FBF5E6;
   --green:#2D6A4F;--green2:#EAF3EE;--blue:#1D4E89;--blue2:#EBF2FB;
+  --pass:#2D6A4F;--fail:#B03A2E;--na:#7A7A7A;
   --brd:#E2DDD6;--brd2:#CCC8C0;
   --r:6px;--r2:10px;--sh:0 1px 8px rgba(0,0,0,.06);--sh2:0 2px 18px rgba(0,0,0,.09);
 }
@@ -35,10 +36,10 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .kpi-bar{display:flex;gap:1px;background:var(--brd);border-bottom:1px solid var(--brd)}
 .kpi{background:var(--white);padding:18px 24px;flex:1;min-width:110px;display:flex;flex-direction:column;gap:5px;transition:background .15s;border-top:3px solid transparent}
 .kpi:hover{background:var(--linen)}
-.kpi.k-total{border-color:var(--black)}.kpi.k-p0{border-color:var(--red)}.kpi.k-p1{border-color:var(--amber)}.kpi.k-p2{border-color:var(--silver)}.kpi.k-func{border-color:var(--blue)}.kpi.k-neg{border-color:var(--dust)}
+.kpi.k-total{border-color:var(--black)}.kpi.k-pass{border-color:var(--pass)}.kpi.k-fail{border-color:var(--fail)}.kpi.k-na{border-color:var(--na)}.kpi.k-prog{border-color:var(--blue)}.kpi.k-p0{border-color:var(--red)}
 .kn{font-size:1.9rem;font-weight:700;line-height:1;color:var(--black);letter-spacing:-.5px;transition:all .3s;font-variant-numeric:tabular-nums}
 .kl{font-size:.67rem;color:var(--mid);text-transform:uppercase;letter-spacing:.8px;font-weight:500}
-.kpi.k-p0 .kn{color:var(--red)}.kpi.k-p1 .kn{color:var(--amber)}.kpi.k-p2 .kn{color:var(--charcoal)}.kpi.k-func .kn{color:var(--blue)}.kpi.k-neg .kn{color:var(--mid)}
+.kpi.k-pass .kn{color:var(--pass)}.kpi.k-fail .kn{color:var(--fail)}.kpi.k-na .kn{color:var(--na)}.kpi.k-prog .kn{color:var(--blue)}.kpi.k-p0 .kn{color:var(--red)}
 .tab-bar{display:flex;padding:0 40px;gap:0;overflow-x:auto;background:var(--linen);border-bottom:1px solid var(--brd);scrollbar-width:none}
 .tab-bar::-webkit-scrollbar{display:none}
 .tab{padding:12px 16px;cursor:pointer;font-size:.77rem;font-weight:500;color:var(--mid);background:transparent;border:none;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap;flex-shrink:0}
@@ -70,13 +71,17 @@ thead th{color:var(--white);font-weight:500;padding:10px 13px;text-align:left;wh
 tbody td{padding:10px 13px;border-bottom:1px solid var(--linen);vertical-align:top;line-height:1.55}
 tbody tr:hover{background:var(--paper)!important}
 .sec-row td{background:var(--ink)!important;color:var(--bone);font-weight:500;font-size:.72rem;padding:7px 13px;letter-spacing:.5px}
-.sec-new td{background:var(--charcoal)!important;color:var(--bone);font-weight:500;font-size:.72rem;padding:7px 13px;letter-spacing:.5px}
 .tc-id{font-family:'Courier New',monospace;font-weight:700;color:var(--charcoal);font-size:.72rem;white-space:nowrap}
 .pri{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.64rem;font-weight:600;white-space:nowrap;letter-spacing:.2px}
 .p0{background:var(--red2);color:var(--red);border:1px solid #DBA9A5}
 .p1{background:var(--amber2);color:var(--amber);border:1px solid #D4B87A}
 .p2{background:var(--linen);color:var(--charcoal);border:1px solid var(--brd2)}
 .p3{background:var(--green2);color:var(--green);border:1px solid #A8CFB8}
+.status{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.65rem;font-weight:600;white-space:nowrap;letter-spacing:.3px;text-transform:uppercase}
+.s-pass{background:var(--green2);color:var(--pass);border:1px solid #A8CFB8}
+.s-fail{background:var(--red2);color:var(--fail);border:1px solid #DBA9A5}
+.s-na{background:var(--linen);color:var(--na);border:1px solid var(--brd2)}
+.s-pending{background:var(--amber2);color:var(--amber);border:1px solid #D4B87A}
 .tt{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.62rem;font-weight:500;white-space:nowrap;letter-spacing:.2px;border:1px solid transparent}
 .tt-func{background:var(--blue2);color:var(--blue);border-color:#BDD4EE}
 .tt-neg{background:var(--red2);color:var(--red);border-color:#DBA9A5}
@@ -101,8 +106,12 @@ tbody tr:hover{background:var(--paper)!important}
 .sum-t .tr-total td{background:var(--black);color:var(--white);font-weight:600}
 .sum-t .row-new{background:var(--paper)!important}.sum-t .row-new:hover{background:var(--linen)!important}
 .pb{display:flex;align-items:center;gap:8px}
-.pbr{height:4px;border-radius:2px;background:var(--bone);flex:1;overflow:hidden;min-width:70px}
-.pbf{height:100%;border-radius:2px;transition:width .6s ease}
+.pbr{height:6px;border-radius:3px;background:var(--bone);flex:1;overflow:hidden;min-width:100px;position:relative}
+.pbf{height:100%;position:absolute;top:0;left:0;transition:width .6s ease}
+.pbf-pass{background:var(--pass)}
+.pbf-fail{background:var(--fail)}
+.pbf-na{background:var(--na)}
+.pb-text{font-size:.69rem;color:var(--mid);min-width:70px;font-weight:500;font-variant-numeric:tabular-nums}
 .new-badge{display:inline-block;padding:1px 7px;border-radius:20px;font-size:.62rem;font-weight:600;letter-spacing:.3px;background:var(--black);color:var(--white)}
 .exist-badge{display:inline-block;padding:1px 7px;border-radius:20px;font-size:.62rem;font-weight:500;letter-spacing:.3px;background:var(--linen);color:var(--mid);border:1px solid var(--brd)}
 .legend{margin-top:26px;padding-top:20px;border-top:1px solid var(--brd);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -134,11 +143,11 @@ tbody tr:hover{background:var(--paper)!important}
 
 <div class="kpi-bar">
   <div class="kpi k-total"><div class="kn" id="k-total">—</div><div class="kl">Total TCs</div></div>
-  <div class="kpi k-p0">  <div class="kn" id="k-p0">—</div>  <div class="kl">P0 Critical</div></div>
-  <div class="kpi k-p1">  <div class="kn" id="k-p1">—</div>  <div class="kl">P1 High</div></div>
-  <div class="kpi k-p2">  <div class="kn" id="k-p2">—</div>  <div class="kl">P2 Medium</div></div>
-  <div class="kpi k-func"><div class="kn" id="k-func">—</div> <div class="kl">Functional</div></div>
-  <div class="kpi k-neg"> <div class="kn" id="k-neg">—</div>  <div class="kl">Negative</div></div>
+  <div class="kpi k-pass">  <div class="kn" id="k-pass">—</div>  <div class="kl">✓ Passed</div></div>
+  <div class="kpi k-fail">  <div class="kn" id="k-fail">—</div>  <div class="kl">✗ Failed</div></div>
+  <div class="kpi k-na">    <div class="kn" id="k-na">—</div>    <div class="kl">— Not Run</div></div>
+  <div class="kpi k-prog"> <div class="kn" id="k-prog">—</div> <div class="kl">% Progress</div></div>
+  <div class="kpi k-p0">   <div class="kn" id="k-p0">—</div>   <div class="kl">P0 Critical</div></div>
 </div>
 
 <div class="tab-bar">
@@ -163,78 +172,78 @@ tbody tr:hover{background:var(--paper)!important}
 
 <div class="pane active" id="pane-summary">
   <div class="sw">
-    <div class="sw-hdr"><h2>Coverage by Module</h2><span id="sum-ts">Fetching live data…</span></div>
+    <div class="sw-hdr"><h2>Test Execution Progress by Module</h2><span id="sum-ts">Fetching live data…</span></div>
     <div id="sum-area"><div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets…</p></div></div>
   </div>
 </div>
 
 <div class="pane" id="pane-mig">
-  <div class="fb"><label>Priority:</label><select id="f-mig-p" onchange="applyFilter('mig')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-mig-t" onchange="applyFilter('mig')"><option value="">All</option><option value="functional">Functional</option><option value="data integrity">Data Integrity</option></select><input id="f-mig-q" type="text" placeholder="Search…" oninput="applyFilter('mig')"/><span class="fc" id="mig-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-mig-s" onchange="applyFilter('mig')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-mig-p" onchange="applyFilter('mig')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-mig-q" type="text" placeholder="Search…" oninput="applyFilter('mig')"/><span class="fc" id="mig-c"></span></div>
   <div class="tbl-wrap" id="wrap-mig"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-comp">
-  <div class="fb"><label>Priority:</label><select id="f-comp-p" onchange="applyFilter('comp')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-comp-t" onchange="applyFilter('comp')"><option value="">All</option><option value="functional">Functional</option><option value="data integrity">Data Integrity</option></select><input id="f-comp-q" type="text" placeholder="Search…" oninput="applyFilter('comp')"/><span class="fc" id="comp-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-comp-s" onchange="applyFilter('comp')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-comp-p" onchange="applyFilter('comp')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-comp-q" type="text" placeholder="Search…" oninput="applyFilter('comp')"/><span class="fc" id="comp-c"></span></div>
   <div class="tbl-wrap" id="wrap-comp"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-earn">
-  <div class="fb"><label>Priority:</label><select id="f-earn-p" onchange="applyFilter('earn')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-earn-t" onchange="applyFilter('earn')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option></select><input id="f-earn-q" type="text" placeholder="Search…" oninput="applyFilter('earn')"/><span class="fc" id="earn-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-earn-s" onchange="applyFilter('earn')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-earn-p" onchange="applyFilter('earn')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-earn-q" type="text" placeholder="Search…" oninput="applyFilter('earn')"/><span class="fc" id="earn-c"></span></div>
   <div class="tbl-wrap" id="wrap-earn"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-ref">
-  <div class="fb"><label>Priority:</label><select id="f-ref-p" onchange="applyFilter('ref')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-ref-t" onchange="applyFilter('ref')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="ux/ui">UX/UI</option></select><input id="f-ref-q" type="text" placeholder="Search…" oninput="applyFilter('ref')"/><span class="fc" id="ref-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-ref-s" onchange="applyFilter('ref')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ref-p" onchange="applyFilter('ref')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ref-q" type="text" placeholder="Search…" oninput="applyFilter('ref')"/><span class="fc" id="ref-c"></span></div>
   <div class="tbl-wrap" id="wrap-ref"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-dis">
-  <div class="fb"><label>Priority:</label><select id="f-dis-p" onchange="applyFilter('dis')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-dis-t" onchange="applyFilter('dis')"><option value="">All</option><option value="functional">Functional</option><option value="data integrity">Data Integrity</option><option value="ux/ui">UX/UI</option></select><input id="f-dis-q" type="text" placeholder="Search…" oninput="applyFilter('dis')"/><span class="fc" id="dis-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-dis-s" onchange="applyFilter('dis')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dis-p" onchange="applyFilter('dis')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dis-q" type="text" placeholder="Search…" oninput="applyFilter('dis')"/><span class="fc" id="dis-c"></span></div>
   <div class="tbl-wrap" id="wrap-dis"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-wal">
-  <div class="fb"><label>Priority:</label><select id="f-wal-p" onchange="applyFilter('wal')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-wal-t" onchange="applyFilter('wal')"><option value="">All</option><option value="functional">Functional</option><option value="ux/ui">UX/UI</option><option value="negative">Negative</option></select><input id="f-wal-q" type="text" placeholder="Search…" oninput="applyFilter('wal')"/><span class="fc" id="wal-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-wal-s" onchange="applyFilter('wal')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-wal-p" onchange="applyFilter('wal')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-wal-q" type="text" placeholder="Search…" oninput="applyFilter('wal')"/><span class="fc" id="wal-c"></span></div>
   <div class="tbl-wrap" id="wrap-wal"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-pro">
-  <div class="fb"><label>Priority:</label><select id="f-pro-p" onchange="applyFilter('pro')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-pro-t" onchange="applyFilter('pro')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="ux/ui">UX/UI</option></select><input id="f-pro-q" type="text" placeholder="Search…" oninput="applyFilter('pro')"/><span class="fc" id="pro-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-pro-s" onchange="applyFilter('pro')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-pro-p" onchange="applyFilter('pro')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-pro-q" type="text" placeholder="Search…" oninput="applyFilter('pro')"/><span class="fc" id="pro-c"></span></div>
   <div class="tbl-wrap" id="wrap-pro"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-rfw">
-  <div class="fb"><label>Priority:</label><select id="f-rfw-p" onchange="applyFilter('rfw')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-rfw-t" onchange="applyFilter('rfw')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="negative">Negative</option><option value="edge case">Edge Case</option></select><input id="f-rfw-q" type="text" placeholder="Search…" oninput="applyFilter('rfw')"/><span class="fc" id="rfw-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-rfw-s" onchange="applyFilter('rfw')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rfw-p" onchange="applyFilter('rfw')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rfw-q" type="text" placeholder="Search…" oninput="applyFilter('rfw')"/><span class="fc" id="rfw-c"></span></div>
   <div class="tbl-wrap" id="wrap-rfw"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-led">
-  <div class="fb"><label>Priority:</label><select id="f-led-p" onchange="applyFilter('led')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-led-t" onchange="applyFilter('led')"><option value="">All</option><option value="data integrity">Data Integrity</option><option value="ux/ui">UX/UI</option><option value="functional">Functional</option></select><input id="f-led-q" type="text" placeholder="Search…" oninput="applyFilter('led')"/><span class="fc" id="led-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-led-s" onchange="applyFilter('led')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-led-p" onchange="applyFilter('led')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-led-q" type="text" placeholder="Search…" oninput="applyFilter('led')"/><span class="fc" id="led-c"></span></div>
   <div class="tbl-wrap" id="wrap-led"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-neg">
-  <div class="fb"><label>Priority:</label><select id="f-neg-p" onchange="applyFilter('neg')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><label>Type:</label><select id="f-neg-t" onchange="applyFilter('neg')"><option value="">All</option><option value="negative">Negative</option><option value="ux/ui">UX/UI</option></select><input id="f-neg-q" type="text" placeholder="Search…" oninput="applyFilter('neg')"/><span class="fc" id="neg-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-neg-s" onchange="applyFilter('neg')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-neg-p" onchange="applyFilter('neg')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-neg-q" type="text" placeholder="Search…" oninput="applyFilter('neg')"/><span class="fc" id="neg-c"></span></div>
   <div class="tbl-wrap" id="wrap-neg"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-dpd">
-  <div class="fb"><label>Priority:</label><select id="f-dpd-p" onchange="applyFilter('dpd')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-dpd-t" onchange="applyFilter('dpd')"><option value="">All</option><option value="functional">Functional</option><option value="boundary">Boundary</option><option value="data integrity">Data Integrity</option></select><input id="f-dpd-q" type="text" placeholder="Search…" oninput="applyFilter('dpd')"/><span class="fc" id="dpd-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-dpd-s" onchange="applyFilter('dpd')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dpd-p" onchange="applyFilter('dpd')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dpd-q" type="text" placeholder="Search…" oninput="applyFilter('dpd')"/><span class="fc" id="dpd-c"></span></div>
   <div class="tbl-wrap" id="wrap-dpd"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-rdm">
-  <div class="fb"><label>Priority:</label><select id="f-rdm-p" onchange="applyFilter('rdm')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-rdm-t" onchange="applyFilter('rdm')"><option value="">All</option><option value="functional">Functional</option><option value="negative">Negative</option></select><input id="f-rdm-q" type="text" placeholder="Search…" oninput="applyFilter('rdm')"/><span class="fc" id="rdm-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-rdm-s" onchange="applyFilter('rdm')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rdm-p" onchange="applyFilter('rdm')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rdm-q" type="text" placeholder="Search…" oninput="applyFilter('rdm')"/><span class="fc" id="rdm-c"></span></div>
   <div class="tbl-wrap" id="wrap-rdm"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-surf">
-  <div class="fb"><label>Priority:</label><select id="f-surf-p" onchange="applyFilter('surf')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-surf-t" onchange="applyFilter('surf')"><option value="">All</option><option value="functional">Functional</option><option value="negative">Negative</option></select><input id="f-surf-q" type="text" placeholder="Search…" oninput="applyFilter('surf')"/><span class="fc" id="surf-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-surf-s" onchange="applyFilter('surf')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-surf-p" onchange="applyFilter('surf')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-surf-q" type="text" placeholder="Search…" oninput="applyFilter('surf')"/><span class="fc" id="surf-c"></span></div>
   <div class="tbl-wrap" id="wrap-surf"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
 <div class="pane" id="pane-hist">
-  <div class="fb"><label>Priority:</label><select id="f-hist-p" onchange="applyFilter('hist')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><label>Type:</label><select id="f-hist-t" onchange="applyFilter('hist')"><option value="">All</option><option value="functional">Functional</option><option value="data integrity">Data Integrity</option></select><input id="f-hist-q" type="text" placeholder="Search…" oninput="applyFilter('hist')"/><span class="fc" id="hist-c"></span></div>
+  <div class="fb"><label>Status:</label><select id="f-hist-s" onchange="applyFilter('hist')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-hist-p" onchange="applyFilter('hist')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-hist-q" type="text" placeholder="Search…" oninput="applyFilter('hist')"/><span class="fc" id="hist-c"></span></div>
   <div class="tbl-wrap" id="wrap-hist"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div>
 </div>
 
@@ -245,15 +254,10 @@ const SHEET_ID='18wlkVf4aIjK-_Px_Avs-0a6j7bq3KPIK0SQcXmwEBRA';
 const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
 const PROXY='https://corsproxy.io/?';
 
-// ── THE CRITICAL FIX ────────────────────────────────────────────────────
-// & MUST be encoded as %26. Leaving & raw truncates sheet names at the &
-// because HTTP treats it as a query-param separator.
-// "Refunds & Returns" raw → Google sees sheet=Refunds (truncated) → 404
-// "Refunds%20%26%20Returns" → Google sees full name → loads correctly
 function sheetURL(name){
   const safe=name.split('').map(c=>{
     if(c===' ')return'%20';
-    if(c==='&')return'%26'; // ← key fix
+    if(c==='&')return'%26';
     if(c==='+')return'%2B';
     if(c==='/')return'%2F';
     if(c==='?')return'%3F';
@@ -319,13 +323,23 @@ async function fetchSheet(name){
 
 function priBadge(p){
   const s=(p||'').trim();
-  if(s.startsWith('P0'))return`<span class="pri p0">P0 Critical</span>`;
-  if(s.startsWith('P1'))return`<span class="pri p1">P1 High</span>`;
-  if(s.startsWith('P2'))return`<span class="pri p2">P2 Medium</span>`;
-  if(s.startsWith('P3'))return`<span class="pri p3">P3 Low</span>`;
+  if(s.startsWith('P0'))return`<span class="pri p0">P0</span>`;
+  if(s.startsWith('P1'))return`<span class="pri p1">P1</span>`;
+  if(s.startsWith('P2'))return`<span class="pri p2">P2</span>`;
+  if(s.startsWith('P3'))return`<span class="pri p3">P3</span>`;
   return`<span class="pri p2">${s||'—'}</span>`;
 }
 function priKey(p){const s=(p||'').trim();if(s.startsWith('P0'))return'p0';if(s.startsWith('P1'))return'p1';if(s.startsWith('P2'))return'p2';return'p3';}
+
+function statusBadge(s){
+  const st=(s||'').trim().toLowerCase();
+  if(st==='pass')return`<span class="status s-pass">Pass</span>`;
+  if(st==='fail')return`<span class="status s-fail">Fail</span>`;
+  if(st==='na'||st==='n/a'||st==='')return`<span class="status s-na">N/A</span>`;
+  return`<span class="status s-pending">${s}</span>`;
+}
+function statusKey(s){const st=(s||'').trim().toLowerCase();if(st==='pass')return'pass';if(st==='fail')return'fail';return'na';}
+
 function ttBadge(t){
   const s=(t||'').trim().toLowerCase();
   if(s==='functional')return`<span class="tt tt-func">Functional</span>`;
@@ -340,7 +354,7 @@ function ttBadge(t){
 function buildTable(rows,key){
   const data=rows.slice(2);
   let html=`<table><thead><tr>
-    <th>TC ID</th><th style="min-width:130px">Module</th>
+    <th>TC ID</th><th>Status</th><th style="min-width:130px">Module</th>
     <th style="min-width:220px">Test Scenario</th>
     <th style="min-width:180px">Preconditions</th>
     <th style="min-width:210px">Test Steps</th>
@@ -351,19 +365,22 @@ function buildTable(rows,key){
   let count=0;
   data.forEach(r=>{
     const id=(r[0]||'').trim();
-    if(!id.match(/^[A-Z]{2,6}-[0-9R]/)){
-      if(id)html+=`<tr class="sec-row"><td colspan="9">${id}</td></tr>`;
+    if(!id.match(/^[A-Z]{2,6}-[0-9RV]/)){
+      if(id)html+=`<tr class="sec-row"><td colspan="10">${id}</td></tr>`;
       return;
     }
     count++;
     const module=r[1]||'',scene=r[2]||'',pre=r[3]||'';
     const steps=(r[4]||'').replace(/\\n/g,'\n');
     const exp=r[5]||'',pri=r[6]||'',ttype=r[7]||'',notes=r[8]||'';
+    const status=r[9]||'';
     const rowBg=count%2===0?'var(--paper)':'';
     html+=`<tr style="background:${rowBg}"
       data-p="${priKey(pri)}" data-t="${ttype.toLowerCase().trim()}"
+      data-s="${statusKey(status)}"
       data-q="${(scene+' '+module+' '+notes).toLowerCase()}">
       <td class="tc-id">${id}</td>
+      <td>${statusBadge(status)}</td>
       <td style="font-size:.71rem;color:var(--mid);font-weight:500">${module}</td>
       <td style="font-weight:500;color:var(--ink)">${scene}</td>
       <td style="font-size:.71rem;color:var(--charcoal)">${pre}</td>
@@ -379,24 +396,24 @@ function buildTable(rows,key){
 
 function applyFilter(key){
   const g=id=>{const el=document.getElementById(id);return el?el.value.toLowerCase().trim():'';};
-  const priF=g(`f-${key}-p`),typeF=g(`f-${key}-t`),textF=g(`f-${key}-q`);
+  const statF=g(`f-${key}-s`),priF=g(`f-${key}-p`),textF=g(`f-${key}-q`);
   const tbody=document.getElementById(`body-${key}`);
   if(!tbody)return;
   const rows=tbody.querySelectorAll('tr');
   let shown=0,total=0;
   rows.forEach(r=>{
-    if(r.classList.contains('sec-row')||r.classList.contains('sec-new')){r.style.display='';return;}
+    if(r.classList.contains('sec-row')){r.style.display='';return;}
     total++;
     let vis=true;
+    if(statF&&r.dataset.s!==statF)vis=false;
     if(priF&&r.dataset.p!==priF)vis=false;
-    if(typeF&&!r.dataset.t.includes(typeF))vis=false;
     if(textF&&!r.dataset.q.includes(textF))vis=false;
     r.style.display=vis?'':'none';
     if(vis)shown++;
   });
   let idx=0;
   rows.forEach(r=>{
-    if(r.classList.contains('sec-row')||r.classList.contains('sec-new')||r.style.display==='none')return;
+    if(r.classList.contains('sec-row')||r.style.display==='none')return;
     r.style.background=idx%2===0?'':'var(--paper)';
     idx++;
   });
@@ -408,66 +425,92 @@ function reapplyAll(){TABS.filter(t=>t.key!=='sum').forEach(t=>applyFilter(t.key
 
 function buildSummary(sumRows,allData){
   const counts={};
-  let totN=0,totP0=0,totP1=0,totP2=0,totFunc=0,totNeg=0;
+  let totN=0,totPass=0,totFail=0,totNA=0,totP0=0;
   TABS.filter(t=>t.key!=='sum').forEach(({key,sheet})=>{
     const rows=allData[key]||[];
-    let n=0,p0=0,p1=0,p2=0;
+    let n=0,pass=0,fail=0,na=0,p0=0;
     rows.slice(2).forEach(r=>{
       const id=(r[0]||'').trim();
-      if(!id.match(/^[A-Z]{2,6}-[0-9R]/))return;
-      n++;const pri=(r[6]||'').trim();
-      if(pri.startsWith('P0'))p0++;else if(pri.startsWith('P1'))p1++;else if(pri.startsWith('P2'))p2++;
-      const tt=(r[7]||'').toLowerCase();
-      if(tt==='functional')totFunc++;if(tt==='negative')totNeg++;
+      if(!id.match(/^[A-Z]{2,6}-[0-9RV]/))return;
+      n++;
+      const pri=(r[6]||'').trim();
+      if(pri.startsWith('P0'))p0++;
+      const stat=(r[9]||'').trim().toLowerCase();
+      if(stat==='pass')pass++;else if(stat==='fail')fail++;else na++;
     });
-    counts[sheet]={n,p0,p1,p2};totN+=n;totP0+=p0;totP1+=p1;totP2+=p2;
+    counts[sheet]={n,pass,fail,na,p0};
+    totN+=n;totPass+=pass;totFail+=fail;totNA+=na;totP0+=p0;
   });
+  const prog=totN>0?Math.round((totPass+totFail)/totN*100):0;
   document.getElementById('k-total').textContent=totN;
+  document.getElementById('k-pass').textContent=totPass;
+  document.getElementById('k-fail').textContent=totFail;
+  document.getElementById('k-na').textContent=totNA;
+  document.getElementById('k-prog').textContent=prog+'%';
   document.getElementById('k-p0').textContent=totP0;
-  document.getElementById('k-p1').textContent=totP1;
-  document.getElementById('k-p2').textContent=totP2;
-  document.getElementById('k-func').textContent=totFunc;
-  document.getElementById('k-neg').textContent=totNeg;
 
-  const dataRows=sumRows.slice(2).filter(r=>r[0]&&r[0]!=='TOTAL'&&!r[0].includes('LEGEND')&&!r[0].startsWith('P'));
   let html=`<table class="sum-t"><thead><tr>
     <th>Module</th><th>In V2?</th><th>Area Covered</th>
     <th style="text-align:center"># TCs</th>
-    <th style="text-align:center">P0</th><th style="text-align:center">P1</th><th style="text-align:center">P2</th>
-    <th style="min-width:140px">P0 %</th><th>Notes</th>
+    <th style="text-align:center">Pass</th>
+    <th style="text-align:center">Fail</th>
+    <th style="text-align:center">Not Run</th>
+    <th style="min-width:180px">Progress</th>
+    <th>Notes</th>
   </tr></thead><tbody>`;
+  
+  // Get area descriptions from Summary sheet
+  const sumData={};
+  sumRows.slice(2).forEach(r=>{
+    const mod=r[0]||'';
+    if(mod&&mod!=='TOTAL'&&!mod.includes('LEGEND')&&!mod.startsWith('P')){
+      sumData[mod]={area:r[2]||'',notes:r[7]||''};
+    }
+  });
+
   TABS.filter(t=>t.key!=='sum').forEach(({sheet,v2})=>{
-    const c=counts[sheet]||{n:0,p0:0,p1:0,p2:0};
-    const sr=dataRows.find(r=>r[0]&&r[0].toString().trim()===sheet);
-    const area=sr?sr[1]||'':'',notes=sr?sr[5]||sr[4]||'':'';
-    const pct=c.n?Math.round(c.p0/c.n*100):0;
-    const barCol=pct>60?'var(--red)':pct>30?'var(--amber)':'var(--green)';
+    const c=counts[sheet]||{n:0,pass:0,fail:0,na:0,p0:0};
+    const sd=sumData[sheet]||{area:'',notes:''};
+    const pct=c.n>0?Math.round((c.pass+c.fail)/c.n*100):0;
+    const passPct=c.n>0?Math.round(c.pass/c.n*100):0;
+    const failPct=c.n>0?Math.round(c.fail/c.n*100):0;
+    const naPct=100-passPct-failPct;
     html+=`<tr class="${v2?'row-new':''}">
       <td><strong style="color:var(--ink)">${sheet}</strong></td>
       <td>${v2?'<span class="new-badge">New</span>':'<span class="exist-badge">Existing</span>'}</td>
-      <td style="font-size:.75rem;color:var(--mid)">${area}</td>
+      <td style="font-size:.75rem;color:var(--mid)">${sd.area}</td>
       <td style="text-align:center;font-weight:600;color:var(--black)">${c.n}</td>
-      <td style="text-align:center">${c.p0?`<span class="pri p0">${c.p0}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.p1?`<span class="pri p1">${c.p1}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.p2?`<span class="pri p2">${c.p2}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td><div class="pb"><div class="pbr"><div class="pbf" style="width:${pct}%;background:${barCol}"></div></div><span style="font-size:.69rem;color:var(--mid);min-width:30px">${pct}%</span></div></td>
-      <td style="font-size:.71rem;color:var(--silver);font-style:italic">${notes}</td>
+      <td style="text-align:center">${c.pass?`<span class="status s-pass">${c.pass}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
+      <td style="text-align:center">${c.fail?`<span class="status s-fail">${c.fail}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
+      <td style="text-align:center">${c.na?`<span class="status s-na">${c.na}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
+      <td>
+        <div class="pb">
+          <div class="pbr">
+            <div class="pbf pbf-pass" style="width:${passPct}%"></div>
+            <div class="pbf pbf-fail" style="width:${failPct}%;left:${passPct}%"></div>
+            <div class="pbf pbf-na" style="width:${naPct}%;left:${passPct+failPct}%"></div>
+          </div>
+          <span class="pb-text">${pct}% done</span>
+        </div>
+      </td>
+      <td style="font-size:.71rem;color:var(--silver);font-style:italic">${sd.notes}</td>
     </tr>`;
   });
+  const totProg=totN>0?Math.round((totPass+totFail)/totN*100):0;
   html+=`<tr class="tr-total"><td colspan="3"><strong>TOTAL</strong></td>
     <td style="text-align:center"><strong>${totN}</strong></td>
-    <td style="text-align:center"><strong>${totP0}</strong></td>
-    <td style="text-align:center"><strong>${totP1}</strong></td>
-    <td style="text-align:center"><strong>${totP2}</strong></td>
-    <td colspan="2"></td>
+    <td style="text-align:center"><strong>${totPass}</strong></td>
+    <td style="text-align:center"><strong>${totFail}</strong></td>
+    <td style="text-align:center"><strong>${totNA}</strong></td>
+    <td><span class="pb-text" style="color:var(--white)"><strong>${totProg}% Complete</strong></span></td>
+    <td></td>
   </tr></tbody></table>`;
   html+=`<div class="legend">
-    <span class="legend-lbl">Priority</span>
-    <div class="legend-item"><div class="ldot" style="background:var(--red)"></div><strong>P0 Critical</strong> — Cannot ship without passing</div>
-    <div class="legend-item"><div class="ldot" style="background:var(--amber)"></div><strong>P1 High</strong> — Must pass before production</div>
-    <div class="legend-item"><div class="ldot" style="background:var(--silver)"></div><strong>P2 Medium</strong> — Deferrable with sign-off</div>
-    <div class="legend-item"><div class="ldot" style="background:var(--green)"></div><strong>P3 Low</strong> — Nice to have</div>
-    <span class="legend-lbl" style="margin-left:8px">Tabs</span>
+    <span class="legend-lbl">Test Status</span>
+    <div class="legend-item"><div class="ldot" style="background:var(--pass)"></div><strong>Pass</strong> — Test executed successfully</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--fail)"></div><strong>Fail</strong> — Test found defect</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--na)"></div><strong>Not Run</strong> — Test pending execution</div>
+    <span class="legend-lbl" style="margin-left:8px">Module Type</span>
     <div class="legend-item"><div class="ldot" style="background:var(--green)"></div>Green dot = New V2 sheet</div>
   </div>`;
   return html;
