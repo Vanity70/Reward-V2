@@ -407,7 +407,7 @@ function buildTable(rows, key, isUI) {
   let count = 0;
   data.forEach(r => {
     const id = (r[0]||'').trim();
-    if(!id.match(/^[A-Z]{1,8}-[0-9A-Z]/)) {
+    if(!id.match(/^[A-Z0-9]{1,8}-[0-9A-Z]/)) {
       if(id) {
         const secCls = isUI ? 'sec-row ui-sec' : 'sec-row';
         html += '<tr class="'+secCls+'"><td colspan="10">'+id+'</td></tr>';
@@ -514,7 +514,7 @@ function buildUISummary(allData) {
     let n=0,pass=0,fail=0,na=0,p0=0;
     rows.slice(2).forEach(r => {
       const id=(r[0]||'').trim();
-      if(!id.match(/^[A-Z]{1,8}-[0-9A-Z]/)) return;
+      if(!id.match(/^[A-Z0-9]{1,8}-[0-9A-Z]/)) return;
       n++;
       if((r[6]||'').trim().startsWith('P0')) p0++;
       const st=(r[9]||'').trim().toLowerCase();
