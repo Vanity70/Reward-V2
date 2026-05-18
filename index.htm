@@ -14,13 +14,10 @@
   --pass:#2D6A4F;--fail:#B03A2E;--na:#7A7A7A;
   --brd:#E2DDD6;--brd2:#CCC8C0;
   --r:6px;--r2:10px;--sh:0 1px 8px rgba(0,0,0,.06);--sh2:0 2px 18px rgba(0,0,0,.09);
-  /* UI tab accent */
   --ui-accent:#2C4A6E;--ui-accent2:#EAF0F8;--ui-pill:#1D4E89;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
-
-/* ── HEADER ── */
 .hdr{background:var(--black);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid #333}
 .hdr-brand{display:flex;align-items:center;gap:12px}
 .hdr-logo{width:34px;height:34px;border-radius:6px;flex-shrink:0;overflow:hidden;object-fit:contain;display:block}
@@ -37,8 +34,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .refresh-btn{background:rgba(255,255,255,.08);color:var(--silver);border:1px solid rgba(255,255,255,.14);padding:5px 13px;border-radius:20px;font-size:.7rem;font-weight:500;cursor:pointer;transition:all .15s}
 .refresh-btn:hover{background:rgba(255,255,255,.14);color:var(--white)}
 #last-sync{color:rgba(255,255,255,.35);font-size:.68rem;white-space:nowrap}
-
-/* ── SUPER-TABS (Backend / UI) ── */
 .super-tab-bar{background:var(--black);padding:0 40px;display:flex;gap:0;border-bottom:2px solid #333}
 .super-tab{padding:10px 22px;cursor:pointer;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.45);border:none;background:transparent;border-bottom:3px solid transparent;transition:all .18s;letter-spacing:.2px;user-select:none;white-space:nowrap;margin-bottom:-2px}
 .super-tab:hover{color:rgba(255,255,255,.75)}
@@ -46,8 +41,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .super-tab .st-badge{display:inline-block;background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);border-radius:20px;padding:1px 8px;font-size:.62rem;margin-left:6px;font-weight:600;vertical-align:middle}
 .super-tab.active .st-badge{background:var(--white);color:var(--black)}
 .super-tab.ui-st .st-icon{display:inline-block;width:6px;height:6px;background:#60A5FA;border-radius:50%;margin-left:5px;vertical-align:middle}
-
-/* ── KPI BAR ── */
 .kpi-bar{display:flex;gap:1px;background:var(--brd);border-bottom:1px solid var(--brd);transition:opacity .2s}
 .kpi{background:var(--white);padding:18px 24px;flex:1;min-width:110px;display:flex;flex-direction:column;gap:5px;transition:background .15s;border-top:3px solid transparent}
 .kpi:hover{background:var(--linen)}
@@ -55,12 +48,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .kn{font-size:1.9rem;font-weight:700;line-height:1;color:var(--black);letter-spacing:-.5px;transition:all .3s;font-variant-numeric:tabular-nums}
 .kl{font-size:.67rem;color:var(--mid);text-transform:uppercase;letter-spacing:.8px;font-weight:500}
 .kpi.k-pass .kn{color:var(--pass)}.kpi.k-fail .kn{color:var(--fail)}.kpi.k-na .kn{color:var(--na)}.kpi.k-prog .kn{color:var(--blue)}.kpi.k-p0 .kn{color:var(--red)}
-
-/* UI KPIs get a subtle blue tint */
 .kpi-bar.ui-kpis .kpi.k-total{border-color:var(--ui-accent)}
 .kpi-bar.ui-kpis .kpi.k-total .kn{color:var(--ui-accent)}
-
-/* ── SUB-TAB BAR ── */
 .tab-bar{display:flex;padding:0 40px;gap:0;overflow-x:auto;background:var(--linen);border-bottom:1px solid var(--brd);scrollbar-width:none}
 .tab-bar::-webkit-scrollbar{display:none}
 .tab{padding:12px 16px;cursor:pointer;font-size:.77rem;font-weight:500;color:var(--mid);background:transparent;border:none;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap;flex-shrink:0}
@@ -69,17 +58,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .tab-badge{display:inline-block;background:var(--bone);color:var(--charcoal);border-radius:20px;padding:1px 7px;font-size:.62rem;margin-left:5px;font-weight:600}
 .tab.active .tab-badge{background:var(--black);color:var(--white)}
 .tab.v2new::after{content:'';display:inline-block;width:5px;height:5px;background:var(--green);border-radius:50%;margin-left:5px;vertical-align:middle}
-/* UI sub-tabs: blue accent */
 .tab-bar.ui-tabs .tab.active{color:var(--ui-accent);border-bottom-color:var(--ui-accent)}
 .tab-bar.ui-tabs .tab.active .tab-badge{background:var(--ui-accent);color:var(--white)}
 .tab-bar.ui-tabs .tab.ui-new::after{content:'';display:inline-block;width:5px;height:5px;background:#60A5FA;border-radius:50%;margin-left:5px;vertical-align:middle}
-
-/* ── CONTENT AREA ── */
 .content{background:var(--white);margin:0 40px 40px;border-radius:0 0 var(--r2) var(--r2);box-shadow:var(--sh2);border:1px solid var(--brd);border-top:none;overflow:hidden;min-height:360px}
 .content.ui-content{border-top:2px solid var(--ui-accent)}
 .pane{display:none}.pane.active{display:block}
-
-/* ── LOADING / ERROR ── */
 .loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:14px;color:var(--silver)}
 .spinner{width:30px;height:30px;border:2px solid var(--bone);border-top-color:var(--charcoal);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -88,8 +72,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .err-box h3{color:var(--red);font-size:.85rem;margin-bottom:7px;font-weight:600}
 .err-box p{font-size:.78rem;color:#7B2A23;line-height:1.7}
 .err-box code{background:#F2D3D0;padding:2px 6px;border-radius:3px;font-size:.72rem;font-family:'Courier New',monospace}
-
-/* ── FILTER BAR ── */
 .fb{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--brd);flex-wrap:wrap;background:var(--paper)}
 .fb.ui-fb{background:var(--ui-accent2)}
 .fb label{font-size:.69rem;font-weight:600;color:var(--silver);text-transform:uppercase;letter-spacing:.5px}
@@ -98,8 +80,6 @@ body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:
 .ui-fb select:focus,.ui-fb input:focus{border-color:var(--ui-accent)}
 .fb input{min-width:190px}
 .fc{margin-left:auto;font-size:.7rem;color:var(--silver);font-style:italic}
-
-/* ── TABLE ── */
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.78rem}
 thead tr{background:var(--black)}
@@ -111,8 +91,6 @@ tbody tr:hover{background:var(--paper)!important}
 .sec-row.ui-sec td{background:var(--ui-accent)!important;color:rgba(255,255,255,.85)}
 .tc-id{font-family:'Courier New',monospace;font-weight:700;color:var(--charcoal);font-size:.72rem;white-space:nowrap}
 .tc-id.ui-id{color:var(--ui-accent)}
-
-/* ── BADGES ── */
 .pri{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.64rem;font-weight:600;white-space:nowrap;letter-spacing:.2px}
 .p0{background:var(--red2);color:var(--red);border:1px solid #DBA9A5}
 .p1{background:var(--amber2);color:var(--amber);border:1px solid #D4B87A}
@@ -136,8 +114,6 @@ tbody tr:hover{background:var(--paper)!important}
 .exp{font-size:.72rem;color:#1E4D35;line-height:1.55}
 .exp.ui-exp{color:#1a365d}
 .notes{font-size:.68rem;color:var(--silver);font-style:italic}
-
-/* ── SUMMARY PANEL ── */
 .sw{padding:28px 32px}
 .sw-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--brd);flex-wrap:wrap}
 .sw-hdr h2{font-size:1rem;font-weight:600;color:var(--black);letter-spacing:-.2px}
@@ -166,11 +142,6 @@ tbody tr:hover{background:var(--paper)!important}
 .legend-lbl{font-size:.7rem;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
 .legend-item{display:flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--brd);padding:6px 12px;border-radius:var(--r);font-size:.74rem}
 .ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-/* ── UI SUMMARY DIVIDER ── */
-.ui-section-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font-size:.72rem;font-weight:600;color:var(--ui-accent);text-transform:uppercase;letter-spacing:.6px}
-.ui-section-divider::before{content:'';flex:0 0 3px;height:14px;background:var(--ui-accent);border-radius:2px}
-
 @media(max-width:860px){
   .hdr{padding:16px 18px}.kpi{min-width:90px;padding:14px 16px}
   .super-tab-bar,.tab-bar,.content{margin-left:0;margin-right:0}
@@ -180,7 +151,6 @@ tbody tr:hover{background:var(--paper)!important}
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-brand">
     <img src="sai-teja.png" class="hdr-logo" alt="Zolve"/>
@@ -191,139 +161,112 @@ tbody tr:hover{background:var(--paper)!important}
   </div>
   <div class="hdr-right">
     <span id="last-sync"></span>
-    <button class="refresh-btn" onclick="loadActive()">↻ Refresh</button>
+    <button class="refresh-btn" onclick="loadActive()">&#8635; Refresh</button>
     <div class="sync-pill">
       <div class="dot loading" id="sync-dot"></div>
-      <span id="sync-lbl">Loading…</span>
+      <span id="sync-lbl">Loading&#8230;</span>
     </div>
   </div>
 </div>
 
-<!-- SUPER-TABS: Backend | UI -->
 <div class="super-tab-bar">
   <div class="super-tab active" id="st-backend" onclick="switchSuper('backend')">
     Backend &amp; Logic
-    <span class="st-badge" id="stb-backend">—</span>
+    <span class="st-badge" id="stb-backend">&#8212;</span>
   </div>
   <div class="super-tab ui-st" id="st-ui" onclick="switchSuper('ui')">
     UI &amp; Visual
     <span class="st-icon"></span>
-    <span class="st-badge" id="stb-ui">—</span>
+    <span class="st-badge" id="stb-ui">&#8212;</span>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     BACKEND SECTION
-══════════════════════════════════════════════════════ -->
+<!-- BACKEND SECTION -->
 <div id="section-backend">
   <div class="kpi-bar" id="kpi-backend">
-    <div class="kpi k-total"><div class="kn" id="k-total">—</div><div class="kl">Total TCs</div></div>
-    <div class="kpi k-pass">  <div class="kn" id="k-pass">—</div>  <div class="kl">✓ Passed</div></div>
-    <div class="kpi k-fail">  <div class="kn" id="k-fail">—</div>  <div class="kl">✗ Failed</div></div>
-    <div class="kpi k-na">    <div class="kn" id="k-na">—</div>    <div class="kl">— Not Run</div></div>
-    <div class="kpi k-prog">  <div class="kn" id="k-prog">—</div>  <div class="kl">% Progress</div></div>
-    <div class="kpi k-p0">    <div class="kn" id="k-p0">—</div>    <div class="kl">P0 Critical</div></div>
+    <div class="kpi k-total"><div class="kn" id="k-total">&#8212;</div><div class="kl">Total TCs</div></div>
+    <div class="kpi k-pass">  <div class="kn" id="k-pass">&#8212;</div>  <div class="kl">&#10003; Passed</div></div>
+    <div class="kpi k-fail">  <div class="kn" id="k-fail">&#8212;</div>  <div class="kl">&#10007; Failed</div></div>
+    <div class="kpi k-na">    <div class="kn" id="k-na">&#8212;</div>    <div class="kl">&#8212; Not Run</div></div>
+    <div class="kpi k-prog">  <div class="kn" id="k-prog">&#8212;</div>  <div class="kl">% Progress</div></div>
+    <div class="kpi k-p0">    <div class="kn" id="k-p0">&#8212;</div>    <div class="kl">P0 Critical</div></div>
   </div>
-
   <div class="tab-bar" id="tabbar-backend">
     <div class="tab active" onclick="showTab(this,'summary','backend')">Summary</div>
-    <div class="tab v2new"  onclick="showTab(this,'mig','backend')">Migration <span class="tab-badge" id="tb-mig">—</span></div>
-    <div class="tab v2new"  onclick="showTab(this,'comp','backend')">Compartments <span class="tab-badge" id="tb-comp">—</span></div>
-    <div class="tab"        onclick="showTab(this,'earn','backend')">Earning Logic <span class="tab-badge" id="tb-earn">—</span></div>
-    <div class="tab"        onclick="showTab(this,'ref','backend')">Refunds &amp; Returns <span class="tab-badge" id="tb-ref">—</span></div>
-    <div class="tab"        onclick="showTab(this,'dis','backend')">Dispute Handling <span class="tab-badge" id="tb-dis">—</span></div>
-    <div class="tab"        onclick="showTab(this,'wal','backend')">Wallet States <span class="tab-badge" id="tb-wal">—</span></div>
-    <div class="tab"        onclick="showTab(this,'pro','backend')">Promo Rewards <span class="tab-badge" id="tb-pro">—</span></div>
-    <div class="tab"        onclick="showTab(this,'rfw','backend')">Referral Rewards <span class="tab-badge" id="tb-rfw">—</span></div>
-    <div class="tab"        onclick="showTab(this,'led','backend')">Ledger &amp; Audit <span class="tab-badge" id="tb-led">—</span></div>
-    <div class="tab"        onclick="showTab(this,'neg','backend')">Negative Cases <span class="tab-badge" id="tb-neg">—</span></div>
-    <div class="tab v2new"  onclick="showTab(this,'dpd','backend')">DPD &amp; Freeze <span class="tab-badge" id="tb-dpd">—</span></div>
-    <div class="tab v2new"  onclick="showTab(this,'rdm','backend')">Redemption Flow <span class="tab-badge" id="tb-rdm">—</span></div>
-    <div class="tab v2new"  onclick="showTab(this,'surf','backend')">Redm. Surfaces <span class="tab-badge" id="tb-surf">—</span></div>
-    <div class="tab v2new"  onclick="showTab(this,'hist','backend')">Points History <span class="tab-badge" id="tb-hist">—</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'mig','backend')">Migration <span class="tab-badge" id="tb-mig">&#8212;</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'comp','backend')">Compartments <span class="tab-badge" id="tb-comp">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'earn','backend')">Earning Logic <span class="tab-badge" id="tb-earn">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'ref','backend')">Refunds &amp; Returns <span class="tab-badge" id="tb-ref">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'dis','backend')">Dispute Handling <span class="tab-badge" id="tb-dis">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'wal','backend')">Wallet States <span class="tab-badge" id="tb-wal">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'pro','backend')">Promo Rewards <span class="tab-badge" id="tb-pro">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'rfw','backend')">Referral Rewards <span class="tab-badge" id="tb-rfw">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'led','backend')">Ledger &amp; Audit <span class="tab-badge" id="tb-led">&#8212;</span></div>
+    <div class="tab"        onclick="showTab(this,'neg','backend')">Negative Cases <span class="tab-badge" id="tb-neg">&#8212;</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'dpd','backend')">DPD &amp; Freeze <span class="tab-badge" id="tb-dpd">&#8212;</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'rdm','backend')">Redemption Flow <span class="tab-badge" id="tb-rdm">&#8212;</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'surf','backend')">Redm. Surfaces <span class="tab-badge" id="tb-surf">&#8212;</span></div>
+    <div class="tab v2new"  onclick="showTab(this,'hist','backend')">Points History <span class="tab-badge" id="tb-hist">&#8212;</span></div>
   </div>
-
   <div class="content" id="content-backend">
-    <div class="pane active" id="pane-b-summary">
-      <div class="sw">
-        <div class="sw-hdr"><h2>Test Execution Progress by Module</h2><span id="sum-ts">Fetching live data…</span></div>
-        <div id="sum-area"><div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets…</p></div></div>
-      </div>
-    </div>
-    <div class="pane" id="pane-b-mig"><div class="fb"><label>Status:</label><select id="f-mig-s" onchange="applyFilter('mig','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-mig-p" onchange="applyFilter('mig','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-mig-q" type="text" placeholder="Search…" oninput="applyFilter('mig','b')"/><span class="fc" id="mig-c"></span></div><div class="tbl-wrap" id="wrap-mig"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-comp"><div class="fb"><label>Status:</label><select id="f-comp-s" onchange="applyFilter('comp','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-comp-p" onchange="applyFilter('comp','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-comp-q" type="text" placeholder="Search…" oninput="applyFilter('comp','b')"/><span class="fc" id="comp-c"></span></div><div class="tbl-wrap" id="wrap-comp"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-earn"><div class="fb"><label>Status:</label><select id="f-earn-s" onchange="applyFilter('earn','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-earn-p" onchange="applyFilter('earn','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-earn-q" type="text" placeholder="Search…" oninput="applyFilter('earn','b')"/><span class="fc" id="earn-c"></span></div><div class="tbl-wrap" id="wrap-earn"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-ref"><div class="fb"><label>Status:</label><select id="f-ref-s" onchange="applyFilter('ref','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ref-p" onchange="applyFilter('ref','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ref-q" type="text" placeholder="Search…" oninput="applyFilter('ref','b')"/><span class="fc" id="ref-c"></span></div><div class="tbl-wrap" id="wrap-ref"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-dis"><div class="fb"><label>Status:</label><select id="f-dis-s" onchange="applyFilter('dis','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dis-p" onchange="applyFilter('dis','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dis-q" type="text" placeholder="Search…" oninput="applyFilter('dis','b')"/><span class="fc" id="dis-c"></span></div><div class="tbl-wrap" id="wrap-dis"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-wal"><div class="fb"><label>Status:</label><select id="f-wal-s" onchange="applyFilter('wal','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-wal-p" onchange="applyFilter('wal','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-wal-q" type="text" placeholder="Search…" oninput="applyFilter('wal','b')"/><span class="fc" id="wal-c"></span></div><div class="tbl-wrap" id="wrap-wal"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-pro"><div class="fb"><label>Status:</label><select id="f-pro-s" onchange="applyFilter('pro','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-pro-p" onchange="applyFilter('pro','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-pro-q" type="text" placeholder="Search…" oninput="applyFilter('pro','b')"/><span class="fc" id="pro-c"></span></div><div class="tbl-wrap" id="wrap-pro"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-rfw"><div class="fb"><label>Status:</label><select id="f-rfw-s" onchange="applyFilter('rfw','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rfw-p" onchange="applyFilter('rfw','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rfw-q" type="text" placeholder="Search…" oninput="applyFilter('rfw','b')"/><span class="fc" id="rfw-c"></span></div><div class="tbl-wrap" id="wrap-rfw"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-led"><div class="fb"><label>Status:</label><select id="f-led-s" onchange="applyFilter('led','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-led-p" onchange="applyFilter('led','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-led-q" type="text" placeholder="Search…" oninput="applyFilter('led','b')"/><span class="fc" id="led-c"></span></div><div class="tbl-wrap" id="wrap-led"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-neg"><div class="fb"><label>Status:</label><select id="f-neg-s" onchange="applyFilter('neg','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-neg-p" onchange="applyFilter('neg','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-neg-q" type="text" placeholder="Search…" oninput="applyFilter('neg','b')"/><span class="fc" id="neg-c"></span></div><div class="tbl-wrap" id="wrap-neg"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-dpd"><div class="fb"><label>Status:</label><select id="f-dpd-s" onchange="applyFilter('dpd','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dpd-p" onchange="applyFilter('dpd','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dpd-q" type="text" placeholder="Search…" oninput="applyFilter('dpd','b')"/><span class="fc" id="dpd-c"></span></div><div class="tbl-wrap" id="wrap-dpd"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-rdm"><div class="fb"><label>Status:</label><select id="f-rdm-s" onchange="applyFilter('rdm','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rdm-p" onchange="applyFilter('rdm','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rdm-q" type="text" placeholder="Search…" oninput="applyFilter('rdm','b')"/><span class="fc" id="rdm-c"></span></div><div class="tbl-wrap" id="wrap-rdm"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-surf"><div class="fb"><label>Status:</label><select id="f-surf-s" onchange="applyFilter('surf','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-surf-p" onchange="applyFilter('surf','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-surf-q" type="text" placeholder="Search…" oninput="applyFilter('surf','b')"/><span class="fc" id="surf-c"></span></div><div class="tbl-wrap" id="wrap-surf"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-b-hist"><div class="fb"><label>Status:</label><select id="f-hist-s" onchange="applyFilter('hist','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-hist-p" onchange="applyFilter('hist','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-hist-q" type="text" placeholder="Search…" oninput="applyFilter('hist','b')"/><span class="fc" id="hist-c"></span></div><div class="tbl-wrap" id="wrap-hist"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-  </div><!-- /content-backend -->
-</div><!-- /section-backend -->
+    <div class="pane active" id="pane-b-summary"><div class="sw"><div class="sw-hdr"><h2>Test Execution Progress by Module</h2><span id="sum-ts">Fetching live data&#8230;</span></div><div id="sum-area"><div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets&#8230;</p></div></div></div></div>
+    <div class="pane" id="pane-b-mig"><div class="fb"><label>Status:</label><select id="f-mig-s" onchange="applyFilter('mig','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-mig-p" onchange="applyFilter('mig','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-mig-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('mig','b')"/><span class="fc" id="mig-c"></span></div><div class="tbl-wrap" id="wrap-mig"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-comp"><div class="fb"><label>Status:</label><select id="f-comp-s" onchange="applyFilter('comp','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-comp-p" onchange="applyFilter('comp','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-comp-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('comp','b')"/><span class="fc" id="comp-c"></span></div><div class="tbl-wrap" id="wrap-comp"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-earn"><div class="fb"><label>Status:</label><select id="f-earn-s" onchange="applyFilter('earn','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-earn-p" onchange="applyFilter('earn','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-earn-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('earn','b')"/><span class="fc" id="earn-c"></span></div><div class="tbl-wrap" id="wrap-earn"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-ref"><div class="fb"><label>Status:</label><select id="f-ref-s" onchange="applyFilter('ref','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ref-p" onchange="applyFilter('ref','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ref-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ref','b')"/><span class="fc" id="ref-c"></span></div><div class="tbl-wrap" id="wrap-ref"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-dis"><div class="fb"><label>Status:</label><select id="f-dis-s" onchange="applyFilter('dis','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dis-p" onchange="applyFilter('dis','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dis-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('dis','b')"/><span class="fc" id="dis-c"></span></div><div class="tbl-wrap" id="wrap-dis"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-wal"><div class="fb"><label>Status:</label><select id="f-wal-s" onchange="applyFilter('wal','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-wal-p" onchange="applyFilter('wal','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-wal-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('wal','b')"/><span class="fc" id="wal-c"></span></div><div class="tbl-wrap" id="wrap-wal"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-pro"><div class="fb"><label>Status:</label><select id="f-pro-s" onchange="applyFilter('pro','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-pro-p" onchange="applyFilter('pro','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-pro-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('pro','b')"/><span class="fc" id="pro-c"></span></div><div class="tbl-wrap" id="wrap-pro"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-rfw"><div class="fb"><label>Status:</label><select id="f-rfw-s" onchange="applyFilter('rfw','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rfw-p" onchange="applyFilter('rfw','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rfw-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('rfw','b')"/><span class="fc" id="rfw-c"></span></div><div class="tbl-wrap" id="wrap-rfw"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-led"><div class="fb"><label>Status:</label><select id="f-led-s" onchange="applyFilter('led','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-led-p" onchange="applyFilter('led','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-led-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('led','b')"/><span class="fc" id="led-c"></span></div><div class="tbl-wrap" id="wrap-led"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-neg"><div class="fb"><label>Status:</label><select id="f-neg-s" onchange="applyFilter('neg','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-neg-p" onchange="applyFilter('neg','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-neg-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('neg','b')"/><span class="fc" id="neg-c"></span></div><div class="tbl-wrap" id="wrap-neg"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-dpd"><div class="fb"><label>Status:</label><select id="f-dpd-s" onchange="applyFilter('dpd','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-dpd-p" onchange="applyFilter('dpd','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-dpd-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('dpd','b')"/><span class="fc" id="dpd-c"></span></div><div class="tbl-wrap" id="wrap-dpd"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-rdm"><div class="fb"><label>Status:</label><select id="f-rdm-s" onchange="applyFilter('rdm','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-rdm-p" onchange="applyFilter('rdm','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-rdm-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('rdm','b')"/><span class="fc" id="rdm-c"></span></div><div class="tbl-wrap" id="wrap-rdm"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-surf"><div class="fb"><label>Status:</label><select id="f-surf-s" onchange="applyFilter('surf','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-surf-p" onchange="applyFilter('surf','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-surf-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('surf','b')"/><span class="fc" id="surf-c"></span></div><div class="tbl-wrap" id="wrap-surf"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-b-hist"><div class="fb"><label>Status:</label><select id="f-hist-s" onchange="applyFilter('hist','b')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-hist-p" onchange="applyFilter('hist','b')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option></select><input id="f-hist-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('hist','b')"/><span class="fc" id="hist-c"></span></div><div class="tbl-wrap" id="wrap-hist"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+  </div>
+</div>
 
-
-<!-- ══════════════════════════════════════════════════════
-     UI SECTION
-══════════════════════════════════════════════════════ -->
+<!-- UI SECTION -->
 <div id="section-ui" style="display:none">
   <div class="kpi-bar ui-kpis" id="kpi-ui">
-    <div class="kpi k-total"><div class="kn" id="uk-total">—</div><div class="kl">Total TCs</div></div>
-    <div class="kpi k-pass">  <div class="kn" id="uk-pass">—</div>  <div class="kl">✓ Passed</div></div>
-    <div class="kpi k-fail">  <div class="kn" id="uk-fail">—</div>  <div class="kl">✗ Failed</div></div>
-    <div class="kpi k-na">    <div class="kn" id="uk-na">—</div>    <div class="kl">— Not Run</div></div>
-    <div class="kpi k-prog">  <div class="kn" id="uk-prog">—</div>  <div class="kl">% Progress</div></div>
-    <div class="kpi k-p0">    <div class="kn" id="uk-p0">—</div>    <div class="kl">P0 Critical</div></div>
+    <div class="kpi k-total"><div class="kn" id="uk-total">&#8212;</div><div class="kl">Total TCs</div></div>
+    <div class="kpi k-pass">  <div class="kn" id="uk-pass">&#8212;</div>  <div class="kl">&#10003; Passed</div></div>
+    <div class="kpi k-fail">  <div class="kn" id="uk-fail">&#8212;</div>  <div class="kl">&#10007; Failed</div></div>
+    <div class="kpi k-na">    <div class="kn" id="uk-na">&#8212;</div>    <div class="kl">&#8212; Not Run</div></div>
+    <div class="kpi k-prog">  <div class="kn" id="uk-prog">&#8212;</div>  <div class="kl">% Progress</div></div>
+    <div class="kpi k-p0">    <div class="kn" id="uk-p0">&#8212;</div>    <div class="kl">P0 Critical</div></div>
   </div>
 
   <div class="tab-bar ui-tabs" id="tabbar-ui">
     <div class="tab active"  onclick="showTab(this,'ui-summary','ui')">Summary</div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-txn','ui')">Txn &amp; Dashboard <span class="tab-badge" id="tb-ui-txn">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-pre','ui')">ZSelect Pre-Screen <span class="tab-badge" id="tb-ui-pre">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-v1','ui')">v1 — Automax <span class="tab-badge" id="tb-ui-v1">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-v2','ui')">v2 — Merchant Mix <span class="tab-badge" id="tb-ui-v2">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-v3','ui')">v3 — Category Boost <span class="tab-badge" id="tb-ui-v3">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-post','ui')">Post-Selection <span class="tab-badge" id="tb-ui-post">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-tasks','ui')">Tasks <span class="tab-badge" id="tb-ui-tasks">—</span></div>
-    <div class="tab ui-new"  onclick="showTab(this,'ui-a11y','ui')">Cross &amp; A11y <span class="tab-badge" id="tb-ui-a11y">—</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-txn','ui')">Txn &amp; Dashboard <span class="tab-badge" id="tb-ui-txn">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-pre','ui')">ZSelect Pre-Screen <span class="tab-badge" id="tb-ui-pre">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-v1','ui')">v1 - Automax <span class="tab-badge" id="tb-ui-v1">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-v2','ui')">v2 - Merchant Mix <span class="tab-badge" id="tb-ui-v2">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-v3','ui')">v3 - Category Boost <span class="tab-badge" id="tb-ui-v3">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-tasks','ui')">Tasks <span class="tab-badge" id="tb-ui-tasks">&#8212;</span></div>
+    <div class="tab ui-new"  onclick="showTab(this,'ui-a11y','ui')">Cross &amp; A11y <span class="tab-badge" id="tb-ui-a11y">&#8212;</span></div>
   </div>
 
   <div class="content ui-content" id="content-ui">
-
-    <!-- UI Summary -->
     <div class="pane active" id="pane-ui-summary">
       <div class="sw">
-        <div class="sw-hdr">
-          <h2>UI Test Execution Progress by Module</h2>
-          <span id="ui-sum-ts">Fetching live data…</span>
-        </div>
-        <div id="ui-sum-area"><div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets…</p></div></div>
+        <div class="sw-hdr"><h2>UI Test Execution Progress by Module</h2><span id="ui-sum-ts">Fetching live data&#8230;</span></div>
+        <div id="ui-sum-area"><div class="loading-wrap"><div class="spinner"></div><p>Loading from Google Sheets&#8230;</p></div></div>
       </div>
     </div>
-
-    <!-- UI detail panes (one per sheet) -->
-    <div class="pane" id="pane-ui-txn"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-txn-s" onchange="applyFilter('ui-txn','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-txn-p" onchange="applyFilter('ui-txn','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-txn-q" type="text" placeholder="Search…" oninput="applyFilter('ui-txn','u')"/><span class="fc" id="ui-txn-c"></span></div><div class="tbl-wrap" id="wrap-ui-txn"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-pre"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-pre-s" onchange="applyFilter('ui-pre','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-pre-p" onchange="applyFilter('ui-pre','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-pre-q" type="text" placeholder="Search…" oninput="applyFilter('ui-pre','u')"/><span class="fc" id="ui-pre-c"></span></div><div class="tbl-wrap" id="wrap-ui-pre"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-v1"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v1-s" onchange="applyFilter('ui-v1','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v1-p" onchange="applyFilter('ui-v1','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v1-q" type="text" placeholder="Search…" oninput="applyFilter('ui-v1','u')"/><span class="fc" id="ui-v1-c"></span></div><div class="tbl-wrap" id="wrap-ui-v1"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-v2"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v2-s" onchange="applyFilter('ui-v2','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v2-p" onchange="applyFilter('ui-v2','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v2-q" type="text" placeholder="Search…" oninput="applyFilter('ui-v2','u')"/><span class="fc" id="ui-v2-c"></span></div><div class="tbl-wrap" id="wrap-ui-v2"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-v3"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v3-s" onchange="applyFilter('ui-v3','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v3-p" onchange="applyFilter('ui-v3','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v3-q" type="text" placeholder="Search…" oninput="applyFilter('ui-v3','u')"/><span class="fc" id="ui-v3-c"></span></div><div class="tbl-wrap" id="wrap-ui-v3"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-post"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-post-s" onchange="applyFilter('ui-post','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-post-p" onchange="applyFilter('ui-post','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-post-q" type="text" placeholder="Search…" oninput="applyFilter('ui-post','u')"/><span class="fc" id="ui-post-c"></span></div><div class="tbl-wrap" id="wrap-ui-post"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-tasks"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-tasks-s" onchange="applyFilter('ui-tasks','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-tasks-p" onchange="applyFilter('ui-tasks','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-tasks-q" type="text" placeholder="Search…" oninput="applyFilter('ui-tasks','u')"/><span class="fc" id="ui-tasks-c"></span></div><div class="tbl-wrap" id="wrap-ui-tasks"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-    <div class="pane" id="pane-ui-a11y"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-a11y-s" onchange="applyFilter('ui-a11y','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-a11y-p" onchange="applyFilter('ui-a11y','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-a11y-q" type="text" placeholder="Search…" oninput="applyFilter('ui-a11y','u')"/><span class="fc" id="ui-a11y-c"></span></div><div class="tbl-wrap" id="wrap-ui-a11y"><div class="loading-wrap"><div class="spinner"></div><p>Loading…</p></div></div></div>
-
-  </div><!-- /content-ui -->
-</div><!-- /section-ui -->
-
+    <div class="pane" id="pane-ui-txn"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-txn-s" onchange="applyFilter('ui-txn','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-txn-p" onchange="applyFilter('ui-txn','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-txn-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-txn','u')"/><span class="fc" id="ui-txn-c"></span></div><div class="tbl-wrap" id="wrap-ui-txn"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-pre"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-pre-s" onchange="applyFilter('ui-pre','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-pre-p" onchange="applyFilter('ui-pre','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-pre-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-pre','u')"/><span class="fc" id="ui-pre-c"></span></div><div class="tbl-wrap" id="wrap-ui-pre"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-v1"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v1-s" onchange="applyFilter('ui-v1','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v1-p" onchange="applyFilter('ui-v1','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v1-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-v1','u')"/><span class="fc" id="ui-v1-c"></span></div><div class="tbl-wrap" id="wrap-ui-v1"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-v2"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v2-s" onchange="applyFilter('ui-v2','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v2-p" onchange="applyFilter('ui-v2','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v2-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-v2','u')"/><span class="fc" id="ui-v2-c"></span></div><div class="tbl-wrap" id="wrap-ui-v2"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-v3"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-v3-s" onchange="applyFilter('ui-v3','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-v3-p" onchange="applyFilter('ui-v3','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-v3-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-v3','u')"/><span class="fc" id="ui-v3-c"></span></div><div class="tbl-wrap" id="wrap-ui-v3"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-tasks"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-tasks-s" onchange="applyFilter('ui-tasks','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-tasks-p" onchange="applyFilter('ui-tasks','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-tasks-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-tasks','u')"/><span class="fc" id="ui-tasks-c"></span></div><div class="tbl-wrap" id="wrap-ui-tasks"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+    <div class="pane" id="pane-ui-a11y"><div class="fb ui-fb"><label>Status:</label><select id="f-ui-a11y-s" onchange="applyFilter('ui-a11y','u')"><option value="">All</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="na">Not Run</option></select><label>Priority:</label><select id="f-ui-a11y-p" onchange="applyFilter('ui-a11y','u')"><option value="">All</option><option value="p0">P0</option><option value="p1">P1</option><option value="p2">P2</option></select><input id="f-ui-a11y-q" type="text" placeholder="Search&#8230;" oninput="applyFilter('ui-a11y','u')"/><span class="fc" id="ui-a11y-c"></span></div><div class="tbl-wrap" id="wrap-ui-a11y"><div class="loading-wrap"><div class="spinner"></div><p>Loading&#8230;</p></div></div></div>
+  </div>
+</div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   CONFIG
-═══════════════════════════════════════════════════════════ */
 const BE_SHEET_ID = '18wlkVf4aIjK-_Px_Avs-0a6j7bq3KPIK0SQcXmwEBRA';
 const UI_SHEET_ID = '1bZfptmCKYY5SlfBvzZ1TOISfuXCapXfB_gELm_4kNdk';
 const PROXY = 'https://corsproxy.io/?';
@@ -346,27 +289,22 @@ const BE_TABS = [
   {key:'sum',  sheet:'Summary',           v2:false},
 ];
 
+// FIX: Use regular hyphens (-) NOT em dashes (—) to match actual Google Sheet tab names.
+// FIX: Removed 'Post-Selection' — this sheet does not exist in the UI Google Sheet.
 const UI_TABS = [
   {key:'ui-txn',   sheet:'Txn & Dashboard',    label:'Txn & Dashboard'},
   {key:'ui-pre',   sheet:'ZSelect Pre-Screen',  label:'ZSelect Pre-Screen'},
-  {key:'ui-v1',    sheet:'v1 — Automax',        label:'v1 — Automax'},
-  {key:'ui-v2',    sheet:'v2 — Merchant Mix',   label:'v2 — Merchant Mix'},
-  {key:'ui-v3',    sheet:'v3 — Category Boost', label:'v3 — Category Boost'},
-  {key:'ui-post',  sheet:'Post-Selection',      label:'Post-Selection'},
+  {key:'ui-v1',    sheet:'v1 - Automax',        label:'v1 - Automax'},
+  {key:'ui-v2',    sheet:'v2 - Merchant Mix',   label:'v2 - Merchant Mix'},
+  {key:'ui-v3',    sheet:'v3 - Category Boost', label:'v3 - Category Boost'},
   {key:'ui-tasks', sheet:'Tasks',               label:'Tasks'},
   {key:'ui-a11y',  sheet:'Cross & A11y',        label:'Cross & A11y'},
   {key:'ui-sum',   sheet:'Summary',             label:'Summary'},
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════════════════ */
 let activeSuperTab = 'backend';
 let beData = {}, uiData = {};
 
-/* ═══════════════════════════════════════════════════════════
-   SUPER-TAB SWITCH
-═══════════════════════════════════════════════════════════ */
 function switchSuper(tab) {
   activeSuperTab = tab;
   document.getElementById('st-backend').classList.toggle('active', tab==='backend');
@@ -375,24 +313,17 @@ function switchSuper(tab) {
   document.getElementById('section-ui').style.display      = tab==='ui'      ? '' : 'none';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SUB-TAB SWITCH
-═══════════════════════════════════════════════════════════ */
 function showTab(el, id, section) {
   const barId = section==='ui' ? 'tabbar-ui' : 'tabbar-backend';
-  document.querySelectorAll(`#${barId} .tab`).forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#'+barId+' .tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  const prefix = section==='ui' ? 'pane-ui-' : 'pane-b-';
   const contentId = section==='ui' ? 'content-ui' : 'content-backend';
-  document.querySelectorAll(`#${contentId} .pane`).forEach(p=>p.classList.remove('active'));
-  const target = section==='ui' ? `pane-${id}` : `pane-b-${id}`;
+  document.querySelectorAll('#'+contentId+' .pane').forEach(p=>p.classList.remove('active'));
+  const target = section==='ui' ? 'pane-'+id : 'pane-b-'+id;
   const el2 = document.getElementById(target);
   if(el2) el2.classList.add('active');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CSV PARSER
-═══════════════════════════════════════════════════════════ */
 function parseCSV(txt) {
   const rows=[];let i=0,n=txt.length;
   while(i<n){
@@ -419,9 +350,6 @@ function parseCSV(txt) {
   return rows;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FETCH A SHEET TAB
-═══════════════════════════════════════════════════════════ */
 function encodeSheet(name) {
   return name.split('').map(c=>{
     if(c===' ')return'%20';if(c==='&')return'%26';if(c==='+')return'%2B';
@@ -432,74 +360,57 @@ function encodeSheet(name) {
 
 async function fetchSheet(sheetId, sheetName) {
   const enc = encodeSheet(sheetName);
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${enc}`;
-  const exportUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&sheet=${enc}`;
-
+  const url = 'https://docs.google.com/spreadsheets/d/'+sheetId+'/gviz/tq?tqx=out:csv&sheet='+enc;
+  const exportUrl = 'https://docs.google.com/spreadsheets/d/'+sheetId+'/export?format=csv&sheet='+enc;
   const tryFetch = async (u) => {
     const r = await fetch(u);
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    if(!r.ok) throw new Error('HTTP '+r.status);
     const t = await r.text();
     if(t.includes('<!DOCTYPE')||t.includes('<html')) throw new Error('HTML response');
     return parseCSV(t);
   };
-
   try { return await tryFetch(url); } catch(_) {}
   try { return await tryFetch(PROXY + encodeURIComponent(url)); } catch(_) {}
   try { return await tryFetch(PROXY + encodeURIComponent(exportUrl)); } catch(e) {
-    throw new Error(`Could not load "${sheetName}": ${e.message}`);
+    throw new Error('Could not load "'+sheetName+'": '+e.message);
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BADGE HELPERS
-═══════════════════════════════════════════════════════════ */
 function priBadge(p) {
   const s=(p||'').trim();
-  if(s.startsWith('P0'))return`<span class="pri p0">P0</span>`;
-  if(s.startsWith('P1'))return`<span class="pri p1">P1</span>`;
-  if(s.startsWith('P2'))return`<span class="pri p2">P2</span>`;
-  if(s.startsWith('P3'))return`<span class="pri p3">P3</span>`;
-  return`<span class="pri p2">${s||'—'}</span>`;
+  if(s.startsWith('P0'))return'<span class="pri p0">P0</span>';
+  if(s.startsWith('P1'))return'<span class="pri p1">P1</span>';
+  if(s.startsWith('P2'))return'<span class="pri p2">P2</span>';
+  if(s.startsWith('P3'))return'<span class="pri p3">P3</span>';
+  return'<span class="pri p2">'+(s||'—')+'</span>';
 }
 function priKey(p){const s=(p||'').trim();if(s.startsWith('P0'))return'p0';if(s.startsWith('P1'))return'p1';if(s.startsWith('P2'))return'p2';return'p3';}
-function statusBadge(s){const st=(s||'').trim().toLowerCase();if(st==='pass')return`<span class="status s-pass">Pass</span>`;if(st==='fail')return`<span class="status s-fail">Fail</span>`;if(st==='na'||st==='n/a'||st==='')return`<span class="status s-na">N/A</span>`;return`<span class="status s-pending">${s}</span>`;}
+function statusBadge(s){const st=(s||'').trim().toLowerCase();if(st==='pass')return'<span class="status s-pass">Pass</span>';if(st==='fail')return'<span class="status s-fail">Fail</span>';if(st==='na'||st==='n/a'||st==='')return'<span class="status s-na">N/A</span>';return'<span class="status s-pending">'+s+'</span>';}
 function statusKey(s){const st=(s||'').trim().toLowerCase();if(st==='pass')return'pass';if(st==='fail')return'fail';return'na';}
 function ttBadge(t){
   const s=(t||'').trim().toLowerCase();
-  if(s==='functional')return`<span class="tt tt-func">Functional</span>`;
-  if(s==='negative')return`<span class="tt tt-neg">Negative</span>`;
-  if(s.includes('ux')||s.includes('ui'))return`<span class="tt tt-ux">UX / UI</span>`;
-  if(s.includes('data'))return`<span class="tt tt-data">Data Integrity</span>`;
-  if(s==='boundary')return`<span class="tt tt-bnd">Boundary</span>`;
-  if(s.includes('edge'))return`<span class="tt tt-edge">Edge Case</span>`;
-  if(s.includes('access'))return`<span class="tt tt-acc">Accessibility</span>`;
-  if(s.includes('regress'))return`<span class="tt tt-reg">Regression</span>`;
-  return`<span class="tt tt-data">${t||'—'}</span>`;
+  if(s==='functional')return'<span class="tt tt-func">Functional</span>';
+  if(s==='negative')return'<span class="tt tt-neg">Negative</span>';
+  if(s.includes('ux')||s.includes('ui'))return'<span class="tt tt-ux">UX / UI</span>';
+  if(s.includes('data'))return'<span class="tt tt-data">Data Integrity</span>';
+  if(s==='boundary')return'<span class="tt tt-bnd">Boundary</span>';
+  if(s.includes('edge'))return'<span class="tt tt-edge">Edge Case</span>';
+  if(s.includes('access'))return'<span class="tt tt-acc">Accessibility</span>';
+  if(s.includes('regress'))return'<span class="tt tt-reg">Regression</span>';
+  return'<span class="tt tt-data">'+(t||'—')+'</span>';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BUILD TABLE
-   col layout differs between BE (status col 9) and UI (status col 9, notes col 8)
-═══════════════════════════════════════════════════════════ */
 function buildTable(rows, key, isUI) {
   const data = rows.slice(2);
   const theadCls = isUI ? 'ui-thead' : '';
-  let html = `<table><thead><tr class="${theadCls}">
-    <th>TC ID</th><th>Status</th><th style="min-width:130px">Module / Screen</th>
-    <th style="min-width:220px">Test Scenario</th>
-    <th style="min-width:180px">Preconditions</th>
-    <th style="min-width:210px">Test Steps</th>
-    <th style="min-width:210px">Expected Result</th>
-    <th>Priority</th><th>Type</th>
-    <th style="min-width:170px">Notes</th>
-  </tr></thead><tbody id="body-${key}">`;
+  let html = '<table><thead><tr class="'+theadCls+'"><th>TC ID</th><th>Status</th><th style="min-width:130px">Module / Screen</th><th style="min-width:220px">Test Scenario</th><th style="min-width:180px">Preconditions</th><th style="min-width:210px">Test Steps</th><th style="min-width:210px">Expected Result</th><th>Priority</th><th>Type</th><th style="min-width:170px">Notes / Device</th></tr></thead><tbody id="body-'+key+'">';
   let count = 0;
   data.forEach(r => {
     const id = (r[0]||'').trim();
     if(!id.match(/^[A-Z]{1,8}-[0-9A-Z]/)) {
       if(id) {
         const secCls = isUI ? 'sec-row ui-sec' : 'sec-row';
-        html += `<tr class="${secCls}"><td colspan="10">${id}</td></tr>`;
+        html += '<tr class="'+secCls+'"><td colspan="10">'+id+'</td></tr>';
       }
       return;
     }
@@ -516,32 +427,16 @@ function buildTable(rows, key, isUI) {
     const rowBg   = count%2===0 ? 'var(--paper)' : '';
     const idCls   = isUI ? 'tc-id ui-id' : 'tc-id';
     const expCls  = isUI ? 'exp ui-exp' : 'exp';
-    html += `<tr style="background:${rowBg}"
-      data-p="${priKey(pri)}" data-s="${statusKey(status)}"
-      data-q="${(scene+' '+module+' '+notes).toLowerCase()}">
-      <td class="${idCls}">${id}</td>
-      <td>${statusBadge(status)}</td>
-      <td style="font-size:.71rem;color:var(--mid);font-weight:500">${module}</td>
-      <td style="font-weight:500;color:var(--ink)">${scene}</td>
-      <td style="font-size:.71rem;color:var(--charcoal)">${pre}</td>
-      <td class="steps">${steps}</td>
-      <td class="${expCls}">${exp}</td>
-      <td>${priBadge(pri)}</td>
-      <td>${ttBadge(ttype)}</td>
-      <td class="notes">${notes}</td>
-    </tr>`;
+    html += '<tr style="background:'+rowBg+'" data-p="'+priKey(pri)+'" data-s="'+statusKey(status)+'" data-q="'+(scene+' '+module+' '+notes).toLowerCase().replace(/"/g,'&quot;')+'"><td class="'+idCls+'">'+id+'</td><td>'+statusBadge(status)+'</td><td style="font-size:.71rem;color:var(--mid);font-weight:500">'+module+'</td><td style="font-weight:500;color:var(--ink)">'+scene+'</td><td style="font-size:.71rem;color:var(--charcoal)">'+pre+'</td><td class="steps">'+steps+'</td><td class="'+expCls+'">'+exp+'</td><td>'+priBadge(pri)+'</td><td>'+ttBadge(ttype)+'</td><td class="notes">'+notes+'</td></tr>';
   });
-  html += `</tbody></table>`;
+  html += '</tbody></table>';
   return {html, count};
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FILTER
-═══════════════════════════════════════════════════════════ */
 function applyFilter(key, section) {
   const g = id => { const el=document.getElementById(id); return el?el.value.toLowerCase().trim():''; };
-  const statF = g(`f-${key}-s`), priF = g(`f-${key}-p`), textF = g(`f-${key}-q`);
-  const tbody = document.getElementById(`body-${key}`);
+  const statF = g('f-'+key+'-s'), priF = g('f-'+key+'-p'), textF = g('f-'+key+'-q');
+  const tbody = document.getElementById('body-'+key);
   if(!tbody) return;
   const rows = tbody.querySelectorAll('tr');
   let shown=0, total=0;
@@ -561,13 +456,10 @@ function applyFilter(key, section) {
     r.style.background = idx%2===0 ? '' : 'var(--paper)';
     idx++;
   });
-  const el = document.getElementById(`${key}-c`);
-  if(el) el.textContent = shown===total ? `${total} test cases` : `Showing ${shown} of ${total}`;
+  const el = document.getElementById(key+'-c');
+  if(el) el.textContent = shown===total ? total+' test cases' : 'Showing '+shown+' of '+total;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BUILD BACKEND SUMMARY
-═══════════════════════════════════════════════════════════ */
 function buildBESummary(sumRows, allData) {
   const counts = {};
   let totN=0, totPass=0, totFail=0, totNA=0, totP0=0;
@@ -593,23 +485,13 @@ function buildBESummary(sumRows, allData) {
   document.getElementById('k-prog').textContent  = prog+'%';
   document.getElementById('k-p0').textContent    = totP0;
   document.getElementById('stb-backend').textContent = totN;
-
   const sumData = {};
   (sumRows||[]).slice(2).forEach(r => {
     const mod=r[0]||'';
     if(mod&&mod!=='TOTAL'&&!mod.includes('LEGEND')&&!mod.startsWith('P'))
       sumData[mod]={area:r[2]||'',notes:r[7]||''};
   });
-
-  let html = `<table class="sum-t"><thead><tr>
-    <th>Module</th><th>In V2?</th><th>Area Covered</th>
-    <th style="text-align:center"># TCs</th>
-    <th style="text-align:center">Pass</th>
-    <th style="text-align:center">Fail</th>
-    <th style="text-align:center">Not Run</th>
-    <th style="min-width:180px">Progress</th>
-    <th>Notes</th>
-  </tr></thead><tbody>`;
+  let html = '<table class="sum-t"><thead><tr><th>Module</th><th>In V2?</th><th>Area Covered</th><th style="text-align:center"># TCs</th><th style="text-align:center">Pass</th><th style="text-align:center">Fail</th><th style="text-align:center">Not Run</th><th style="min-width:180px">Progress</th><th>Notes</th></tr></thead><tbody>';
   BE_TABS.filter(t=>t.key!=='sum').forEach(({sheet,v2}) => {
     const c = counts[sheet]||{n:0,pass:0,fail:0,na:0,p0:0};
     const sd = sumData[sheet]||{area:'',notes:''};
@@ -617,43 +499,13 @@ function buildBESummary(sumRows, allData) {
     const failPct = c.n>0?Math.round(c.fail/c.n*100):0;
     const naPct   = 100-passPct-failPct;
     const pct     = c.n>0?Math.round((c.pass+c.fail)/c.n*100):0;
-    html += `<tr class="${v2?'row-new':''}">
-      <td><strong>${sheet}</strong></td>
-      <td>${v2?'<span class="new-badge">New</span>':'<span class="exist-badge">Existing</span>'}</td>
-      <td style="font-size:.75rem;color:var(--mid)">${sd.area}</td>
-      <td style="text-align:center;font-weight:600">${c.n}</td>
-      <td style="text-align:center">${c.pass?`<span class="status s-pass">${c.pass}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.fail?`<span class="status s-fail">${c.fail}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.na?`<span class="status s-na">${c.na}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td><div class="pb"><div class="pbr">
-        <div class="pbf pbf-pass" style="width:${passPct}%"></div>
-        <div class="pbf pbf-fail" style="width:${failPct}%;left:${passPct}%"></div>
-        <div class="pbf pbf-na"   style="width:${naPct}%;left:${passPct+failPct}%"></div>
-      </div><span class="pb-text">${pct}% done</span></div></td>
-      <td style="font-size:.71rem;color:var(--silver);font-style:italic">${sd.notes}</td>
-    </tr>`;
+    html += '<tr class="'+(v2?'row-new':'')+'"><td><strong>'+sheet+'</strong></td><td>'+(v2?'<span class="new-badge">New</span>':'<span class="exist-badge">Existing</span>')+'</td><td style="font-size:.75rem;color:var(--mid)">'+sd.area+'</td><td style="text-align:center;font-weight:600">'+c.n+'</td><td style="text-align:center">'+(c.pass?'<span class="status s-pass">'+c.pass+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td style="text-align:center">'+(c.fail?'<span class="status s-fail">'+c.fail+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td style="text-align:center">'+(c.na?'<span class="status s-na">'+c.na+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td><div class="pb"><div class="pbr"><div class="pbf pbf-pass" style="width:'+passPct+'%"></div><div class="pbf pbf-fail" style="width:'+failPct+'%;left:'+passPct+'%"></div><div class="pbf pbf-na" style="width:'+naPct+'%;left:'+(passPct+failPct)+'%"></div></div><span class="pb-text">'+pct+'% done</span></div></td><td style="font-size:.71rem;color:var(--silver);font-style:italic">'+sd.notes+'</td></tr>';
   });
-  html += `<tr class="tr-total"><td colspan="3"><strong>TOTAL</strong></td>
-    <td style="text-align:center"><strong>${totN}</strong></td>
-    <td style="text-align:center"><strong>${totPass}</strong></td>
-    <td style="text-align:center"><strong>${totFail}</strong></td>
-    <td style="text-align:center"><strong>${totNA}</strong></td>
-    <td><span class="pb-text" style="color:var(--white)"><strong>${prog}% Complete</strong></span></td>
-    <td></td></tr></tbody></table>`;
-  html += `<div class="legend">
-    <span class="legend-lbl">Status</span>
-    <div class="legend-item"><div class="ldot" style="background:var(--pass)"></div><strong>Pass</strong></div>
-    <div class="legend-item"><div class="ldot" style="background:var(--fail)"></div><strong>Fail</strong></div>
-    <div class="legend-item"><div class="ldot" style="background:var(--na)"></div><strong>Not Run</strong></div>
-    <span class="legend-lbl" style="margin-left:8px">Module Type</span>
-    <div class="legend-item"><div class="ldot" style="background:var(--green)"></div>Green dot = New V2</div>
-  </div>`;
+  html += '<tr class="tr-total"><td colspan="3"><strong>TOTAL</strong></td><td style="text-align:center"><strong>'+totN+'</strong></td><td style="text-align:center"><strong>'+totPass+'</strong></td><td style="text-align:center"><strong>'+totFail+'</strong></td><td style="text-align:center"><strong>'+totNA+'</strong></td><td><span class="pb-text" style="color:var(--white)"><strong>'+prog+'% Complete</strong></span></td><td></td></tr></tbody></table>';
+  html += '<div class="legend"><span class="legend-lbl">Status</span><div class="legend-item"><div class="ldot" style="background:var(--pass)"></div><strong>Pass</strong></div><div class="legend-item"><div class="ldot" style="background:var(--fail)"></div><strong>Fail</strong></div><div class="legend-item"><div class="ldot" style="background:var(--na)"></div><strong>Not Run</strong></div><span class="legend-lbl" style="margin-left:8px">Module Type</span><div class="legend-item"><div class="ldot" style="background:var(--green)"></div>Green dot = New V2</div></div>';
   return html;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BUILD UI SUMMARY
-═══════════════════════════════════════════════════════════ */
 function buildUISummary(allData) {
   const counts = {};
   let totN=0, totPass=0, totFail=0, totNA=0, totP0=0;
@@ -680,27 +532,17 @@ function buildUISummary(allData) {
   document.getElementById('uk-p0').textContent    = totP0;
   document.getElementById('stb-ui').textContent   = totN;
 
-  let html = `<table class="sum-t"><thead><tr class="ui-thead">
-    <th>Module</th><th>Type</th><th>Device / Context</th>
-    <th style="text-align:center"># TCs</th>
-    <th style="text-align:center">Pass</th>
-    <th style="text-align:center">Fail</th>
-    <th style="text-align:center">Not Run</th>
-    <th style="min-width:180px">Progress</th>
-    <th>Key Coverage Notes</th>
-  </tr></thead><tbody>`;
-
   const uiMeta = {
-    'Txn & Dashboard':    {ctx:'iOS + Android',       note:'Rewards main, Points History, Use Points tab, FAQ copy audit'},
-    'ZSelect Pre-Screen': {ctx:'CFSB / Black / Sig',  note:'3-card screen, entry-point gating, detail sheet bullets, naming & date regressions'},
-    'v1 — Automax':       {ctx:'CFSB',                note:'Activation flow, success sheet copy, billing cycle credit, copy contradictions'},
-    'v2 — Merchant Mix':  {ctx:'CFSB / Black / Sig',  note:'Brand grid, category tabs, limit toast, tray deselect, confirmation sheet, post-select dashboard'},
-    'v3 — Category Boost':{ctx:'CFSB',                note:'Stamp carousel, drag-drop, 5x/3x tabs, SELECTED overlay, confirmation, success, post-select "upgraded!"'},
-    'Post-Selection':     {ctx:'CFSB / All',          note:'Program switch, quarter reset, persistence, ZKart badge, Travel banner'},
-    'Tasks':              {ctx:'iOS + Android',       note:'4 task states, progress bar (settled-only), refund impact, push notifications'},
-    'Cross & A11y':       {ctx:'iOS + Android',       note:'TalkBack/VoiceOver, 3G loading, Dynamic Type, 320px screen, Help CTA'},
+    'Txn & Dashboard':    {ctx:'iOS + Android',      note:'Rewards main, Points History, Use Points tab, FAQ copy audit'},
+    'ZSelect Pre-Screen': {ctx:'CFSB / Black / Sig', note:'3-card screen, entry-point gating, detail sheet bullets, naming & date regressions'},
+    'v1 - Automax':       {ctx:'CFSB',               note:'Activation flow, success sheet copy, billing cycle credit, copy contradictions'},
+    'v2 - Merchant Mix':  {ctx:'CFSB / Black / Sig', note:'Brand grid, category tabs, limit toast, tray deselect, confirmation sheet, post-select dashboard'},
+    'v3 - Category Boost':{ctx:'CFSB',               note:'Stamp carousel, drag-drop, 5x/3x tabs, SELECTED overlay, confirmation, success, post-select upgraded!'},
+    'Tasks':              {ctx:'iOS + Android',      note:'4 task states, progress bar (settled-only), refund impact, push notifications'},
+    'Cross & A11y':       {ctx:'iOS + Android',      note:'TalkBack/VoiceOver, 3G loading, Dynamic Type, 320px screen, Help CTA'},
   };
 
+  let html = '<table class="sum-t"><thead><tr class="ui-thead"><th>Module</th><th>Type</th><th>Device / Context</th><th style="text-align:center"># TCs</th><th style="text-align:center">Pass</th><th style="text-align:center">Fail</th><th style="text-align:center">Not Run</th><th style="min-width:180px">Progress</th><th>Key Coverage Notes</th></tr></thead><tbody>';
   UI_TABS.filter(t=>t.key!=='ui-sum').forEach(({key,sheet}) => {
     const c  = counts[sheet]||{n:0,pass:0,fail:0,na:0,p0:0};
     const md = uiMeta[sheet]||{ctx:'—',note:'—'};
@@ -708,93 +550,55 @@ function buildUISummary(allData) {
     const failPct = c.n>0?Math.round(c.fail/c.n*100):0;
     const naPct   = 100-passPct-failPct;
     const pct     = c.n>0?Math.round((c.pass+c.fail)/c.n*100):0;
-    html += `<tr>
-      <td><strong style="color:var(--ui-accent)">${sheet}</strong></td>
-      <td><span class="ui-badge">UI</span></td>
-      <td style="font-size:.74rem;color:var(--mid)">${md.ctx}</td>
-      <td style="text-align:center;font-weight:600">${c.n}</td>
-      <td style="text-align:center">${c.pass?`<span class="status s-pass">${c.pass}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.fail?`<span class="status s-fail">${c.fail}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td style="text-align:center">${c.na?`<span class="status s-na">${c.na}</span>`:'<span style="color:var(--silver)">—</span>'}</td>
-      <td><div class="pb"><div class="pbr">
-        <div class="pbf pbf-pass" style="width:${passPct}%"></div>
-        <div class="pbf pbf-fail" style="width:${failPct}%;left:${passPct}%"></div>
-        <div class="pbf pbf-na"   style="width:${naPct}%;left:${passPct+failPct}%"></div>
-      </div><span class="pb-text">${pct}% done</span></div></td>
-      <td style="font-size:.71rem;color:var(--silver);font-style:italic">${md.note}</td>
-    </tr>`;
+    html += '<tr><td><strong style="color:var(--ui-accent)">'+sheet+'</strong></td><td><span class="ui-badge">UI</span></td><td style="font-size:.74rem;color:var(--mid)">'+md.ctx+'</td><td style="text-align:center;font-weight:600">'+c.n+'</td><td style="text-align:center">'+(c.pass?'<span class="status s-pass">'+c.pass+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td style="text-align:center">'+(c.fail?'<span class="status s-fail">'+c.fail+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td style="text-align:center">'+(c.na?'<span class="status s-na">'+c.na+'</span>':'<span style="color:var(--silver)">—</span>')+'</td><td><div class="pb"><div class="pbr"><div class="pbf pbf-pass" style="width:'+passPct+'%"></div><div class="pbf pbf-fail" style="width:'+failPct+'%;left:'+passPct+'%"></div><div class="pbf pbf-na" style="width:'+naPct+'%;left:'+(passPct+failPct)+'%"></div></div><span class="pb-text">'+pct+'% done</span></div></td><td style="font-size:.71rem;color:var(--silver);font-style:italic">'+md.note+'</td></tr>';
   });
-  html += `<tr class="tr-total"><td colspan="3"><strong>TOTAL — UI Tests</strong></td>
-    <td style="text-align:center"><strong>${totN}</strong></td>
-    <td style="text-align:center"><strong>${totPass}</strong></td>
-    <td style="text-align:center"><strong>${totFail}</strong></td>
-    <td style="text-align:center"><strong>${totNA}</strong></td>
-    <td><span class="pb-text" style="color:var(--white)"><strong>${prog}% Complete</strong></span></td>
-    <td></td></tr></tbody></table>`;
-  html += `<div class="legend">
-    <span class="legend-lbl">Status</span>
-    <div class="legend-item"><div class="ldot" style="background:var(--pass)"></div><strong>Pass</strong></div>
-    <div class="legend-item"><div class="ldot" style="background:var(--fail)"></div><strong>Fail</strong></div>
-    <div class="legend-item"><div class="ldot" style="background:var(--na)"></div><strong>Not Run</strong></div>
-    <span class="legend-lbl" style="margin-left:8px">Sheet</span>
-    <div class="legend-item"><div class="ldot" style="background:var(--ui-accent)"></div>UI Google Sheet — live sync</div>
-  </div>`;
+  html += '<tr class="tr-total"><td colspan="3"><strong>TOTAL — UI Tests</strong></td><td style="text-align:center"><strong>'+totN+'</strong></td><td style="text-align:center"><strong>'+totPass+'</strong></td><td style="text-align:center"><strong>'+totFail+'</strong></td><td style="text-align:center"><strong>'+totNA+'</strong></td><td><span class="pb-text" style="color:var(--white)"><strong>'+prog+'% Complete</strong></span></td><td></td></tr></tbody></table>';
+  html += '<div class="legend"><span class="legend-lbl">Status</span><div class="legend-item"><div class="ldot" style="background:var(--pass)"></div><strong>Pass</strong></div><div class="legend-item"><div class="ldot" style="background:var(--fail)"></div><strong>Fail</strong></div><div class="legend-item"><div class="ldot" style="background:var(--na)"></div><strong>Not Run</strong></div><span class="legend-lbl" style="margin-left:8px">Sheet</span><div class="legend-item"><div class="ldot" style="background:var(--ui-accent)"></div>UI Google Sheet — live sync</div></div>';
   return html;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LOAD BACKEND
-═══════════════════════════════════════════════════════════ */
 async function loadBackend() {
   try {
     const results = await Promise.all(BE_TABS.map(t => fetchSheet(BE_SHEET_ID, t.sheet)));
     BE_TABS.forEach((t,i) => beData[t.key] = results[i]);
-
     document.getElementById('sum-area').innerHTML = buildBESummary(beData.sum, beData);
     const now = new Date();
-    document.getElementById('sum-ts').textContent = `Updated ${now.toLocaleTimeString()}`;
-
+    document.getElementById('sum-ts').textContent = 'Updated '+now.toLocaleTimeString();
     BE_TABS.filter(t=>t.key!=='sum').forEach(({key}) => {
       const {html, count} = buildTable(beData[key], key, false);
-      document.getElementById(`wrap-${key}`).innerHTML = html;
-      document.getElementById(`${key}-c`).textContent = `${count} test cases`;
-      document.getElementById(`tb-${key}`).textContent = count;
+      document.getElementById('wrap-'+key).innerHTML = html;
+      document.getElementById(key+'-c').textContent = count+' test cases';
+      document.getElementById('tb-'+key).textContent = count;
     });
     return true;
   } catch(err) {
     console.error('Backend load error:', err);
     showErr('sum-area', err.message, false);
-    BE_TABS.filter(t=>t.key!=='sum').forEach(({key}) => showErr(`wrap-${key}`, err.message, false));
+    BE_TABS.filter(t=>t.key!=='sum').forEach(({key}) => showErr('wrap-'+key, err.message, false));
     return false;
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LOAD UI
-═══════════════════════════════════════════════════════════ */
 async function loadUI() {
   try {
     const results = await Promise.all(UI_TABS.map(t => fetchSheet(UI_SHEET_ID, t.sheet)));
     UI_TABS.forEach((t,i) => uiData[t.key] = results[i]);
-
     document.getElementById('ui-sum-area').innerHTML = buildUISummary(uiData);
     const now = new Date();
-    document.getElementById('ui-sum-ts').textContent = `Updated ${now.toLocaleTimeString()}`;
-
-    UI_TABS.filter(t=>t.key!=='ui-sum').forEach(({key, sheet}) => {
+    document.getElementById('ui-sum-ts').textContent = 'Updated '+now.toLocaleTimeString();
+    UI_TABS.filter(t=>t.key!=='ui-sum').forEach(({key}) => {
       const {html, count} = buildTable(uiData[key], key, true);
-      document.getElementById(`wrap-${key}`).innerHTML = html;
-      document.getElementById(`${key}-c`).textContent = `${count} test cases`;
-      // badge on tab
+      document.getElementById('wrap-'+key).innerHTML = html;
+      document.getElementById(key+'-c').textContent = count+' test cases';
       const shortKey = key.replace('ui-','');
-      const badgeEl = document.getElementById(`tb-ui-${shortKey}`);
+      const badgeEl = document.getElementById('tb-ui-'+shortKey);
       if(badgeEl) badgeEl.textContent = count;
     });
     return true;
   } catch(err) {
     console.error('UI load error:', err);
     showErr('ui-sum-area', err.message, true);
-    UI_TABS.filter(t=>t.key!=='ui-sum').forEach(({key}) => showErr(`wrap-${key}`, err.message, true));
+    UI_TABS.filter(t=>t.key!=='ui-sum').forEach(({key}) => showErr('wrap-'+key, err.message, true));
     return false;
   }
 }
@@ -803,22 +607,17 @@ function showErr(containerId, msg, isUI) {
   const el = document.getElementById(containerId);
   if(!el) return;
   const hint = isUI
-    ? 'Ensure the UI Google Sheet (<code>1bZfptmCKYY5SlfBvzZ1TOISfuXCapXfB_gELm_4kNdk</code>) is published: <strong>File → Share → Publish to web → each tab as CSV</strong>.'
+    ? 'Ensure the UI Google Sheet is published: <strong>File → Share → Publish to web → each tab as CSV</strong>.'
     : 'Ensure the Backend Google Sheet is published: <strong>File → Share → Publish to web → each tab as CSV</strong>.';
-  el.innerHTML = `<div class="err-box"><h3>Could not load data from Google Sheets</h3>
-    <p>${hint}<br/>Also serve over HTTP/HTTPS — browsers block Sheets requests from <code>file://</code>.</p>
-    <p style="margin-top:8px;color:var(--mid);font-size:.71rem">Error: ${msg}</p></div>`;
+  el.innerHTML = '<div class="err-box"><h3>Could not load data from Google Sheets</h3><p>'+hint+'<br/>Also serve over HTTP/HTTPS — browsers block Sheets requests from <code>file://</code>.</p><p style="margin-top:8px;color:var(--mid);font-size:.71rem">Error: '+msg+'</p></div>';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LOAD ALL + AUTO-REFRESH
-═══════════════════════════════════════════════════════════ */
 async function loadActive() {
   setSyncState('loading', 'Loading…');
   const [beOk, uiOk] = await Promise.all([loadBackend(), loadUI()]);
   reapplyAll();
   const now = new Date();
-  document.getElementById('last-sync').textContent = `Synced ${now.toLocaleTimeString()}`;
+  document.getElementById('last-sync').textContent = 'Synced '+now.toLocaleTimeString();
   if(beOk && uiOk) setSyncState('live', 'Live');
   else setSyncState('error', 'Error');
 }
@@ -829,7 +628,7 @@ function reapplyAll() {
 }
 
 function setSyncState(s, l) {
-  document.getElementById('sync-dot').className = `dot ${s}`;
+  document.getElementById('sync-dot').className = 'dot '+s;
   document.getElementById('sync-lbl').textContent = l;
 }
 
